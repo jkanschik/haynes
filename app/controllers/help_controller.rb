@@ -1,0 +1,2 @@
+class HelpController < MainController
+end

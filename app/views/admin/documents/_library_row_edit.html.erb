@@ -1,0 +1,12 @@
+<span id="library_<%=library_row_id%>">
+    <% usage = session[:libraries][library_row_id] %>
+    <%= libraries = Library.find(:all, :include => :country).map {|c| [truncate(c.nice_label, :length => 40), c.id]}.sort!
+        select_tag("library_#{library_row_id}[usage_id]", options_for_select(libraries, usage.usage_id))
+    %>
+	
+	<%= submit_to_remote 'ok', 'ok',
+                       :url => {:action => 'library_save', :library_row_id => library_row_id, :usage_type => 'library'},
+                       :html => {:class => 'button'} %>
+    <%= link_to_remote 'cancel', 
+                   :url => {:action => is_new ? 'library_destroy' : 'library_show', :library_row_id => library_row_id}%>
+</span>

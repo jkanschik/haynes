@@ -1,0 +1,6 @@
+<p>
+	<a href='<%= url_for :controller => 'works', :action => :show, :id => event[:work]%>'>
+		"<%=event[:work].title%>" by <%=event[:work].composer.name%>
+		has been commented by <%=event[:content].user.name%>.
+	</a>
+</p>

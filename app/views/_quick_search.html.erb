@@ -1,0 +1,30 @@
+<div id="quick_search">	
+	<h1>Quick Search</h1>
+    <%= form_tag url_for(:action => 'search', :controller => '/search', :name=>'Simple'), :id=> "quick_search_form" do %>
+		<p class="label">Composer:</p>
+		<p class="content">
+		<%= select_tag("composer_id", options_for_select(composers(length), -1) ) %>
+		</p>
+		<p class="label">Category:</p>
+		<p class="content">
+			<% instrumentations = instrumentations(length) %>
+			<%= select_tag("instrumentation_id", options_for_select( instrumentations, -1)) %>
+			<style type="text/css">
+				<!--
+					<% instrumentations.each do |i| %>
+						<% if i[1] =~ /[0-9]head/ %>
+							select#instrumentation_id option[value="<%=i[1]%>"] { font-weight: bold; }
+           	<% elsif i[1] =~ /[0-9]/ %>
+              select#instrumentation_id option[value="<%=i[1]%>"] { padding-left: 1em; }
+          	<% end %>
+       		<% end %>
+      	-->
+      </style>
+		</p>
+		<p class="label">&nbsp;</p>
+		<p class="content">
+			<%= submit_tag 'Search', :id => 'submit', :class => 'button' %>
+		</p>
+	<% end %>
+  <%# observe_form :quick_search_form, :condition => "!Prototype.Browser.IE6", :url => { :action => :quick_search_select, :controller => :main } %>
+</div>

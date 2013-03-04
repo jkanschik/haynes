@@ -1,0 +1,19 @@
+<% searches = session[:searches].values.select { |s| s.visible } %>
+<% if searches.size > 0 %>
+  <div id="search_history">
+    <h1>Previous Searches</h1>
+    <div>
+      <% searches.sort {|x,y| y <=> x}.each do |search| %>
+        <div class="search">
+          <p class="date">
+            <%= search.created_at.strftime("%d.%m.%Y %H:%M:%S") %>
+          </p>
+          <%= render :partial => "search/"+search.summary_name, :locals => {:search => search} %>
+          <p>
+            <%= link_to "Repeat search ...", :controller => "/search", :action => :list, :id => search.search_id %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

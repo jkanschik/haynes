@@ -1,0 +1,12 @@
+<table class="list">
+    <tr>
+        <th>Abbr</th>
+        <th>Label</th>
+    </tr>
+    <% @abbreviations.each do |abbreviation| %>
+    <tr class="<%= cycle('odd', 'even')%>">
+        <td><%=abbreviation.code%></td>
+        <td><%=abbreviation.label%></td>
+    </tr>
+    <% end %>
+</table>

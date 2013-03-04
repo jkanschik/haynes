@@ -1,0 +1,43 @@
+<h1>New data online</h1>
+This is a list of all changes which have been made in the online edition and which are not yet stored locally.
+<% form_tag :action => 'update' do %>
+
+	<h2>New additions</h2>
+	<% if @additions.size == 0 %>
+    	<p>No new additions online.</p>
+	<% else %>
+	    <table>
+	    	<tr><th /><th>Text</th><th>Work</th><th>Created</th></tr>
+		    <% @additions.each do |addition| %>
+		        <tr>
+                    <td><%= select_tag "additions[#{addition['id']}]", options_for_select([["Update", "U"], ["Delete", "D"]])  %></td>
+	                <td><%= addition["text"] %></td>
+	                <td><% work = Work.find addition["work_id"] %>
+					    <%= link_to work.title, :controller => :works, :action => :show, :id => work %>
+						by <%= work.composer.full_name %>
+					</td>
+	                <td><%= addition["created_at"] %></td>
+		        </tr>
+		    <% end %>
+	    </table>
+	<% end %>
+	
+	<h2>New users</h2>
+	<% if @users.size == 0 %>
+    	<p>No new users online.</p>
+	<% else %>
+	    <table>
+	    	<tr><th /><th>Log name</th><th>Name</th><th>Mail</th></tr>
+		    <% @users.each do |user| %>
+		        <tr>
+                    <td><%= select_tag "users[#{user['id']}]", options_for_select([["Update", "U"], ["Delete", "D"]])  %></td>
+	                <td><%= user["logname"] %></td>
+	                <td><%= user["name"] %></td>
+	                <td><%= user["mail"] %></td>
+		        </tr>
+		    <% end %>
+	    </table>
+	<% end %>
+	
+<%= submit_tag 'Save all checked records', :class => 'button' %>
+<% end %>

@@ -1,0 +1,43 @@
+<%= render :partial => '/search/record_navigation' %>
+
+<h1>Full Record 
+    <% if @search  and @search.record_index %><small>(<%= @search.record_index + 1 %> of <%= @search.number_of_records%>)</small><% end %>
+</h1>
+
+<h1>Library information for '<%= @library.country.code%>-<%= @library.code_place%>'</h1>
+
+<table>
+    <tr><td class="label">Name:</td><td><%= @library.name%></td></tr>
+    <tr><td class="label">Label:</td><td><%= @library.label%></td></tr>
+    <tr><td class="label">Location:</td><td><%= @library.city %>, <%= @library.country.label %></td></tr>
+    <tr><td class="label">Homepage:</td><td><%= (@library.www == nil or @library.www == "") ? hyphenate : link_to(@library.www, @library.www, :target => 'new') %></td></tr>
+    <tr><td class="label">Misc. information:</td><td><%= hyphenate @library.misc_info %></td></tr>
+
+	<% if @library.successor %>
+	    <tr>
+	    	<td class="label">Deposited in:</td>
+			<td>You find the collection of this library in:</td>
+		</tr>
+		<tr>
+			<td/>
+	        <td><a href="<%= url_for  :action => :show, :id => @library.successor %>" ><%= @library.successor.nice_label %> - <%= @library.successor.label %></a></td>
+		</tr>
+    <% end %>
+	
+	<tr><td class="label">Relevant Entries:</td><td><%= @library_works %></td></tr>
+    
+	
+    <% if @library.predecessors.size > 0 %>
+        <tr>
+            <td class="label">Is successor of:</td>
+            <td>
+                <% br = ""; @library.predecessors.each do |predecessor| %>
+                    <%= br%>
+                    <a href= "<%= url_for :action => :show, :id => predecessor %>"><%= predecessor.label %></a>
+                <% br = "<br />"; end %>
+
+            </td>
+        </tr>
+    <% end %>
+
+</table>

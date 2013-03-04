@@ -1,0 +1,129 @@
+<h1>Advanced Search</h1>
+<%= form_tag url_for(:action => 'search', :controller => 'search', :name=>'Advanced'), :class => "advanced_search" do %>
+    <div class="input">
+        <%= submit_tag 'Search', :id => 'submit', :class => 'button'%>
+        <%= submit_tag 'Clear selection', :id => 'reset', :type =>'reset', :class => 'button'%>
+    </div>
+<br></br>
+    <div class="line">
+        <div class="column" style="margin-left: -100%">
+            <label for="composer_id[]">Composer <%= help :advanced_search_composer %>:</label>
+            <p><%= select_tag("composer_id[]", options_for_select(composers(50), -1), :multiple => true, :size => 5) %></p>
+        </div>
+        <div class="column" style="margin-left: -50%">
+            <label for="instrumentation_id[]">Category <%= help :advanced_search_instrumentation%>:</label>
+            <p><%= select_tag("instrumentation_id[]", options_for_select(instrumentations(50), -1), :multiple => true, :size => 5) %></p>
+        </div>
+    </div>
+
+    <div class="line">
+        <div class="column" style="margin-left: -100%">
+            <label for="publisher_id[]">Publisher:</label>
+			<%= help :advanced_search_publisher %>
+            <p><%= select_tag("publisher_id[]", options_for_select(@publishers, -1), :multiple => true, :size => 5) %></p>
+        </div>
+        <div class="column" style="margin-left: -50%">
+            <label for="library_id[]">Library:</label>
+			<%= help :advanced_search_library %>
+            <p><%= select_tag("library_id[]", options_for_select(@libraries, -1), :multiple => true, :size => 5) %></p>
+        </div>
+    </div>
+
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Oboes:</div>
+        <div class="column" style="margin-left: -80%"><%= check_box_tag("oboe[]", "Oboe") %><label for="oboe_oboe">Oboe</label></div>
+        <div class="column" style="margin-left: -60%"><%= check_box_tag("oboe[]", "Oboe d'Amore") %><label for="oboe_oboe">Oboe d'Amore</label></div>
+        <div class="column" style="margin-left: -40%"><%= check_box_tag("oboe[]", "Grand Oboe") %><label for="oboe_oboe">Grand Oboe in B</label></div>
+        <div class="column" style="margin-left: -20%"><%= check_box_tag("oboe[]", "Tenoroboe") %><label for="oboe_oboe">Tenor Oboe in F</label></div>
+    </div>
+
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Work lost:</div>
+        <div class="column" style="margin-left: -80%"><%= radio_button_tag("lost", "Y") %><label for="lost_y">Yes</label></div>
+        <div class="column" style="margin-left: -60%"><%= radio_button_tag("lost", "N") %><label for="lost_n">No</label></div>
+        <div class="column" style="margin-left: -40%"><%= radio_button_tag("lost", "P") %><label for="lost_p">Parts</label></div>
+        <div class="column" style="margin-left: -20%"><%= radio_button_tag("lost", "", true) %><label for="lost_">Not relevant</label></div>
+    </div>
+<% if admin? %>
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Work done:</div>
+        <div class="column" style="margin-left: -80%"><%= radio_button_tag("done", "Y") %><label for="done_y">Yes</label></div>
+        <div class="column" style="margin-left: -60%"><%= radio_button_tag("done", "N") %><label for="done_n">No</label></div>
+        <div class="column" style="margin-left: -40%"><%= radio_button_tag("done", "P") %><label for="done_p">Progress</label></div>
+        <div class="column" style="margin-left: -20%"><%= radio_button_tag("done", "", true) %><label for="done_">Not relevant</label></div>
+    </div>
+<% end %>
+<% if admin? %>
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Here:</div>
+        <div class="column" style="margin-left: -80%"><%= radio_button_tag("here", 1) %><label for="here_y">Yes</label></div>
+        <div class="column" style="margin-left: -60%"><%= radio_button_tag("here", 0) %><label for="here_n">No</label></div>
+        <div class="column" style="margin-left: -20%"><%= radio_button_tag("here", "", true) %><label for="here_">Not relevant</label></div>
+    </div>
+<% end %>
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Attribution doubtful:</div>
+        <div class="column" style="margin-left: -80%"><%= radio_button_tag("attr_doubtful", "Y") %><label for="attr_doubtful_y">Yes</label></div>
+        <div class="column" style="margin-left: -60%"><%= radio_button_tag("attr_doubtful", "N") %><label for="attr_doubtful_n">No</label></div>
+        <div class="column" style="margin-left: -40%"><%= radio_button_tag("attr_doubtful", "", true) %><label for="attr_doubtful_">Not relevant</label></div>
+    </div>
+
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Modern edition:</div>
+        <div class="column" style="margin-left: -80%"><%= radio_button_tag("mod_edition", "Y") %><label for="mod_edition_y">Yes</label></div>
+        <div class="column" style="margin-left: -60%"><%= radio_button_tag("mod_edition", "N") %><label for="mod_edition_n">No</label></div>
+        <div class="column" style="margin-left: -40%"><%= radio_button_tag("mod_edition", "", true) %><label for="mod_edition_">Not relevant</label></div>
+    </div>
+
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Download available:</div>
+        <div class="column" style="margin-left: -80%"><%= radio_button_tag("download", "Y") %><label for="download_y">Yes</label></div>
+        <div class="column" style="margin-left: -60%"><%= radio_button_tag("download", "N") %><label for="download_n">No</label></div>
+        <div class="column" style="margin-left: -40%"><%= radio_button_tag("download", "", true) %><label for="download_">Not relevant</label></div>
+    </div>
+
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Opus:</div>
+        <div class="column" style="margin-left: -80%"><%= text_field_tag "opus", "", :size => 15 %><%= help :advanced_search_opus %></div>
+        <div class="column" style="margin-left: -50%">Key:</div>
+        <div class="column" style="margin-left: -30%"><%= text_field_tag "keys", "", :size => 2 %><%= help :advanced_search_key %></div>
+    </div>
+
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Shelf Number:</div>
+        <div class="column" style="margin-left: -80%"><%= text_field_tag "signature", "", :size => 15  %><%= help :advanced_search_shelfnumber %></div>
+        <div class="column" style="margin-left: -50%">RISM:</div>
+        <div class="column" style="margin-left: -30%"><%= text_field_tag "rism_1", "", :size => 3 %>.<%= text_field_tag "rism_2", "", :size => 3 %>.<%= text_field_tag "rism_3", "", :size => 3 %><%= help :advanced_search_rism %></div>
+    </div>
+<% if admin? %>
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Keywords:</div>
+        <div class="column" style="margin-left: -80%"><%= text_field_tag "keywords" %></div>
+    </div>
+<% end %>
+<!--
+    <div class="line">
+        <div class="column" style="margin-left: -100%">Country:</div>
+        <div class="column" style="margin-left: -80%">
+            <%= check_box_tag("country[]", "Italy") %><label for="country_">Italy</label><br />
+            <%= check_box_tag("country[]", "Benelux") %><label for="country_">Benelux</label>
+		</div>
+        <div class="column" style="margin-left: -60%">
+            <%= check_box_tag("country[]", "France") %><label for="country_">France</label><br />
+            <%= check_box_tag("country[]", "Austria/Bohemia") %><label for="country_">Austria/Bohemia</label>
+        </div>
+        <div class="column" style="margin-left: -40%">
+            <%= check_box_tag("country[]", "Germany") %><label for="country_">Germany</label><br />
+            <%= check_box_tag("country[]", "Rest") %><label for="country_">Rest</label>
+        </div>
+        <div class="column" style="margin-left: -20%">
+            <%= check_box_tag("country[]", "England") %><label for="country_">England</label>
+        </div>
+    </div>
+-->
+
+    <div class="input">
+        <%= submit_tag 'Search', :id => 'submit', :class => 'button'%>
+        <%= submit_tag 'Clear selection', :id => 'reset', :type =>'reset', :class => 'button'%>
+    </div>
+<% end %>

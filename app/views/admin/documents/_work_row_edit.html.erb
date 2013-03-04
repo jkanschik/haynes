@@ -1,0 +1,10 @@
+<span id="work_<%=work_row_id%>">
+	<% usage = session[:works][work_row_id]%>
+	Work id: <%=text_field "work_#{work_row_id}", 'usage_id', :size => 10, :value => usage.usage_id%>
+	
+	<%= submit_to_remote 'ok', 'ok',
+                       :url => {:action => 'work_save', :work_row_id => work_row_id, :usage_type => 'Work'},
+                       :html => {:class => 'button'} %>
+    <%= link_to_remote 'cancel', 
+                   :url => {:action => is_new ? 'work_destroy' : 'work_show', :work_row_id => work_row_id}%>
+</span>

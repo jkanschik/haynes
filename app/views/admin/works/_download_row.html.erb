@@ -1,0 +1,13 @@
+<% download = session[:downloads][download_row_id] %>
+<tr id="download_<%=download_row_id%>">
+    <td><%= download.kind %><br/><%= download.material(true).label %></td>
+    <td><%=hyphenate truncate(download.link, :length => 40)%><br/><%=hyphenate download.comment%></td>
+    <td class="button">
+        <%= link_to_remote image_tag('x.gif', :border => 0), 
+                       :url => {:action => 'download_destroy', :download_row_id => download_row_id}%>
+    </td>
+    <td class="button">
+    <%= link_to_remote image_tag('edit.gif', :border => 0), 
+                   :url => {:action => 'download_edit', :download_row_id => download_row_id}%>
+    </td>
+</tr>

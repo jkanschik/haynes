@@ -1,0 +1,68 @@
+<% form_remote_tag(:url => {:action => 'admin_block_save', :id => @work}, :update => 'work_admin_header') do%>
+	<p class="commands">
+	    <%= submit_tag 'Save', :class => 'button'%>
+	    <%= submit_to_remote 'Cancel', 'Cancel',
+	                       :url => {:action => 'admin_block_show', :id => @work},
+	                       :update => 'work_admin_header',
+	                       :html => {:class => 'button'} %>
+	</p>
+	<br><br>
+	<%= error_messages_for 'work' %>
+	
+    <table class="work_header">
+        <tr>
+        	<td class="label">Done: <%=@work.done %></td>
+        	<td class="label">State:
+	        <%=select('work', 'state', code_select('state.work'), {}, {:onchange => "if (this.value != 'default') alert('Warning: You changed the state to something other than <default>!');"}) %></td>
+			
+			</td>
+        <td class="label"  colspan="2">Source:
+        <%=select 'work', 'source_id', Source.find(:all).collect {|s| [s.name, s.id]} %></td>
+		</tr>
+		<tr>
+            <td class="label">Created:
+            <%=@work.created_at.strftime(  "%d.%m.%Y" )%></td>
+            <td class="label">Last updated:
+            <%=@work.updated_at.strftime(  "%d.%m.%Y" )%></td>
+			<td class="label" colspan="2">Number:
+            <%=text_field 'work', 'number', :size => 2%></td>
+        </tr>
+		<tr>
+           <td class="label">Exact year:
+           <%=text_field 'work', 'year', :size => 4%></td>
+            <td class="label">First year:
+           <%=text_field 'work', 'first_year', :size => 4%></td>
+            <td class="label" colspan="2">Last year:
+           <%=text_field 'work', 'last_year', :size => 4%></td>
+ 		</tr>
+		<tr>
+            <td class="label">Lost:
+            <%=select 'work', 'lost', code_select("yes_no.lost") %></td>
+            <td class="label">Att. doubtful:
+            <%=check_box 'work', 'attr_doubtful', {}, 'Y', 'N'%></td>
+ 			<td class="label" colspan="2">Here:
+			<%=check_box 'work', 'here'%></td>
+		</tr>
+		<tr>
+			<td class="label"><%= oboe_checkbox 0%></td>
+			<td class="label"><%= oboe_checkbox 1%></td>
+			<td class="label"><%= oboe_checkbox 2%></td>
+			<td class="label"><%= oboe_checkbox 3%></td>
+		</tr>
+		<tr>
+			<td class="label"><%= country_checkbox 0%></td>
+			<td class="label"><%= country_checkbox 1%></td>
+			<td class="label"><%= country_checkbox 2%></td>
+			<td class="label"><%= country_checkbox 3%></td>
+		</tr>
+		<tr>
+			<td class="label"><%= country_checkbox 4%></td>
+			<td class="label"><%= country_checkbox 5%></td>
+			<td class="label"><%= country_checkbox 6%></td>
+			<td></td>
+		</tr>
+	</table>
+
+    <%= render :partial => '/works/header'%>
+ 
+<% end %>

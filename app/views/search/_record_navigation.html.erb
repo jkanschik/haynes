@@ -1,0 +1,20 @@
+<% next_action = nil unless defined? next_action %>
+
+<% if @search %>
+
+    <div id="search_navigation">
+		<%= link_to "Back to List", :controller => "/search", :action => :list, :id => @search.search_id %>
+ 			 |
+    	<% if @search.record_index == 0 %>
+		    Previous Record
+		<% else %>
+            <%= link_to 'Previous Record', :controller => '/search', :action => 'previous', :id => @search.search_id, :next_action => next_action %>
+	    <% end %> |
+        <% if @search.record_index == @search.number_of_records - 1 %>
+            Next Record
+        <% else %>
+            <%= link_to 'Next Record', :controller => '/search', :action => 'next', :id => @search.search_id, :next_action => next_action  %>
+        <% end %>
+    </div>
+
+<% end %>

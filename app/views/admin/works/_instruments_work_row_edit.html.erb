@@ -1,0 +1,20 @@
+<tr id="instruments_work_<%=instruments_work_row_id%>">
+    <% iw = session[:instruments_works][instruments_work_row_id] %>
+    <td>
+        <%=text_field "instruments_work_#{instruments_work_row_id}", "occurences", :size => 10, :value => iw.occurences %>
+    </td>
+    <td>
+	    <%= instruments = Instrument.find(:all, :order => 'label').map {|i| ["#{i.label} (#{i.name})", i.id]}
+	        select_tag("instruments_work_#{instruments_work_row_id}[instrument_id]", options_for_select(instruments, iw.instrument_id))
+	    %>
+    </td>
+    <td class="button">
+	    <%= submit_to_remote 'ok', 'ok',
+	                       :url => {:action => 'instruments_work_save', :instruments_work_row_id => instruments_work_row_id},
+	                       :html => {:class => 'button'} %>
+    </td>
+    <td>
+	    <%= link_to_remote 'cancel', 
+	                   :url => {:action => is_new ? 'instruments_work_destroy' : 'instruments_work_show', :instruments_work_row_id => instruments_work_row_id} %>
+    </td>
+</tr>

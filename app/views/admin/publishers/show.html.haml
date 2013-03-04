@@ -1,0 +1,70 @@
+= render partial: '/search/record_navigation'
+
+- logo = "./public/publishers/pub_#{@publisher.id}.gif"
+- if File.exists? logo
+  %p.commands
+    = link_to(image_tag("/publishers/pub_#{@publisher.id}.gif", :border => 0, :width => 200, :height => 50), @publisher.www )
+
+%h1
+  Full Record
+  - if @search
+    %small (#{@search.record_index+1} of #{@search.number_of_records})
+
+%h1 Publisher information for '#{@publisher.label}'
+
+%p.commands
+  = link_to 'Edit', :action => 'edit', :id => @publisher , :search_id => params[:search_id]
+
+.row
+  %label Country:
+  %value= @publisher.country ? "#{@publisher.country.code} (#{@publisher.country.label})" : hyphenate
+
+.row
+  %label City:
+  %value= @publisher.city
+
+.row
+  %label Label:
+  %value= @publisher.label
+
+.row
+  %label Name:
+  %value= @publisher.name
+
+.row
+  %label Homepage:
+  %value= (@publisher.www == nil or @publisher.www == "") ? hyphenate : link_to(@publisher.www, @publisher.www, :target => 'new')
+
+.row
+  %label Category:
+  %value= @publisher.verlag_category
+
+- if @publisher.successor
+  .row
+    %label Has successor
+    %value= link_to @publisher.successor.label, admin_publisher_path(@publisher.successor)
+
+.row
+  %label Misc. Information:
+  %value= @publisher.comment_english
+
+.row
+  %label Done:
+  %value= code_label @publisher.done, "done"
+
+.row
+  %label Intern Info:
+  %value= @publisher.intern_info
+
+.row
+  %label Relevant Entries:
+  %value= @publisher.works.active.count
+
+- if @publisher.predecessors.size > 0
+  .row
+    %label Is successor of:
+    %value= @publisher.predecessors.collect{ |p| link_to(p.label, admin_publisher_path(p))}.join("<br />").html_safe
+
+.row
+  %label State:
+  %value= code_label(@publisher.state, 'state')

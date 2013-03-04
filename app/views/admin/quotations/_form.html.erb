@@ -1,0 +1,60 @@
+<%= error_messages_for 'quotation' %>
+
+<table>
+    <tr>
+        <td class="label">Label:</td>
+        <td><%=text_field 'quotation', 'label', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Title:</td>
+        <td><%=text_field 'quotation', 'title', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Title detail:</td>
+        <td><%=text_field 'quotation', 'title_detail', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Article:</td>
+        <td><%=text_field 'quotation', 'article', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Author:</td>
+        <td><%=text_field 'quotation', 'author', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Publisher:</td>
+        <td><%=text_field 'quotation', 'print_publisher', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Printed in:</td>
+        <td><%=text_field 'quotation', 'print_location', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Year of publication:</td>
+        <td><%=text_field 'quotation', 'print_year', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Misc. information:</td>
+        <td><%=text_area 'quotation', 'misc_info', :rows => 5 %></td>
+    </tr>
+    <tr>
+        <td class="label">Peter - Intern information:</td>
+        <td><%=text_area 'quotation', 'peter_intern_info', :rows => 5 %></td>
+    </tr>
+    <tr>
+        <td class="label">Peter - Locations:</td>
+        <td><%=text_field 'quotation', 'peter_locations', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Peter - Code:</td>
+        <td><%=text_field 'quotation', 'peter_code', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Peter - Status:</td>
+        <td><%=text_field 'quotation', 'admin_status', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Peter - State:</td>
+        <td><%=text_field 'quotation', 'state', :size => 60, :maxlength => 255 %></td>
+    </tr>
+</table>

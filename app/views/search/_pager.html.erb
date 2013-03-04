@@ -1,0 +1,22 @@
+<% if @search.number_of_pages > 1 %>
+	<%	delta = 3
+		delta = 1 if (1..7).include?(@search.number_of_pages)
+		delta = 2 if (8..12).include?(@search.number_of_pages)
+	%>
+	<div class="pager">
+		Go to page:
+		<%= ("<p>" + link_to('1', { :page => 1}) + "</p>").html_safe if @search.page_number > delta + 1 %>
+		<%= "..." if @search.page_number > delta + 2 %>
+		<%= ("<p>" + link_to(@search.page_number - 3, { :page => @search.page_number - 3}) + "</p>").html_safe if @search.page_number > 3 and delta > 2 %>
+		<%= ("<p>" + link_to(@search.page_number - 2, { :page => @search.page_number - 2}) + "</p>").html_safe if @search.page_number > 2 and delta > 1 %>
+		<%= ("<p>" + link_to(@search.page_number - 1, { :page => @search.page_number - 1}) + "</p>").html_safe if @search.page_number > 1 %>
+		<p class="current"><%= @search.page_number %></p>
+		<%= ("<p>" + link_to(@search.page_number + 1, { :page => @search.page_number + 1}) + "</p>").html_safe if @search.page_number < @search.number_of_pages - 1 %>
+		<%= ("<p>" + link_to(@search.page_number + 2, { :page => @search.page_number + 2}) + "</p>").html_safe if @search.page_number < @search.number_of_pages - 2 and delta > 1 %>
+		<%= ("<p>" + link_to(@search.page_number + 3, { :page => @search.page_number + 3}) + "</p>").html_safe if @search.page_number < @search.number_of_pages - 3 and delta > 2 %>
+		<%= "..." if @search.page_number < @search.number_of_pages - delta - 1 %>
+		<%= ("<p>" + link_to(@search.number_of_pages, { :page => @search.number_of_pages}) + "</p>").html_safe if @search.page_number < @search.number_of_pages %>
+	</div>
+<% elsif @search.number_of_records > 10 %>
+    &nbsp;
+<% end %>

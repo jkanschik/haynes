@@ -1,0 +1,22 @@
+<tr id="instrumentations_work_<%=instrumentations_work_row_id%>">
+    <td>
+	    <%= iw = session[:instrumentations_works][instrumentations_work_row_id]
+	      list = Instrumentation.find(
+	        :all,
+	        :select => "id, code, label",
+			:conditions => ["parent_id is not null" ],
+	        :order => "id").collect {|i| [i.code + ". " + i.label, i.id]}
+
+	        select_tag("instrumentations_work_#{instrumentations_work_row_id}[instrumentation_id]", options_for_select(list, iw.instrumentation_id))
+	    %>
+    </td>
+    <td>
+	    <%= submit_to_remote 'ok', 'ok',
+	        	:url => {:action => 'instrumentations_work_save', :instrumentations_work_row_id => instrumentations_work_row_id},
+	            :html => {:class => 'button'} %>
+    </td>
+    <td>
+	    <%= link_to_remote 'cancel',
+				:url => {:action => is_new ? 'instrumentations_work_destroy' : 'instrumentations_work_show', :instrumentations_work_row_id => instrumentations_work_row_id} %>
+    </td>
+</tr>

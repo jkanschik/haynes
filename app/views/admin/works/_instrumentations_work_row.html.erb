@@ -1,0 +1,17 @@
+<tr id="instrumentations_work_<%=instrumentations_work_row_id%>">
+    <td>
+	    <%= iw = session[:instrumentations_works][instrumentations_work_row_id]
+	        iw.instrumentation(true)
+	        link_to_remote iw.instrumentation.code + ". " + iw.instrumentation.label,
+	        	:url => {:action => 'instrumentations_work_edit', :instrumentations_work_row_id => instrumentations_work_row_id}%>
+	</td>
+	<td />
+    <td class="button">
+	    <%= link_to_remote image_tag('x.gif', :border => 0), 
+	        	:url => {:action => 'instrumentations_work_destroy', :instrumentations_work_row_id => instrumentations_work_row_id}%>
+    </td>
+    <td class="button">
+	    <%= link_to_remote image_tag('edit.gif', :border => 0), 
+        		:url => {:action => 'instrumentations_work_edit', :instrumentations_work_row_id => instrumentations_work_row_id}%>
+    </td>
+</tr>

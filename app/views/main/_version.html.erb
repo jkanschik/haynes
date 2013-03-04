@@ -1,0 +1,4 @@
+<p>
+    <%= link_to "#{event[:work].title} by #{event[:work].composer.name} has been changed",
+        :controller => '/search', :action => 'show', :id => event[:search_id], :record => event[:record] %>
+</p>

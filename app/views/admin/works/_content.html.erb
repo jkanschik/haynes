@@ -1,0 +1,186 @@
+<%= error_messages_for 'work' %>
+
+<table>
+    <tr>
+        <td class="label">Composer:</td>
+        <td colspan="3"><%=select 'work', 'composer_id', @composers, {:include_blank => true} %></td>
+    </tr>
+    <tr>
+        <td class="label">Alternative composers:</td>
+		<td colspan="3">
+			<table>
+			    <% session[:composers_works].each_index do |composers_work_row_id|%>
+			        <%=render :partial => 'composers_work_row', :locals => {:composers_work_row_id => composers_work_row_id}%>
+			    <% end %>
+			    <tr id="add_composers_work">
+			        <td colspan="4">
+			            <%= link_to_remote 'Add alternative composer...', 
+			                               :url => {:action => 'composers_work_add', :work_id => @work}%>
+			        </td>
+				</tr>
+			</table>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">Title:</td>
+        <td colspan="3"><%=text_field 'work', 'title', :size => 60%></td>
+    </tr>
+    <tr>
+        <td class="label">Main title:</td>
+        <td colspan="3"><%=text_field 'work', 'main_title', :size => 60 %></td>
+    </tr>
+    <tr>
+        <td class="label">Position of title:</td>
+        <td colspan="3"><%=text_field 'work', 'position_title', :size => 60%></td>
+    </tr>
+    <tr>
+        <td class="label">Opus:</td>
+        <td><%=text_field 'work', 'opus' %></td>
+        <td class="label">Tune:</td>
+        <td><%=text_field 'work', 'tune' %></td>
+    </tr>
+    <tr>
+        <td class="label">Instrumentation:</td>
+        <td colspan="3"><%=text_field 'work', 'instrumentation', :size => 60 %>
+			            	<%=link_to 'Show Codes',
+					{:controller => '/abbreviations', :action => 'show'},
+					{:popup => ['new_window_name', 'height=300,width=600,scrollbars=yes'], :rel => 'inst_help'}%>
+
+		</td>
+    </tr>
+    <tr>
+        <td class="label">Instruments:</td>
+		<td colspan="3">
+			<table>
+				<tr><th>Count</th><th>Instrument</th></tr>
+			    <% session[:instruments_works].each_index do |instruments_work_row_id|%>
+			        <%=render :partial => 'instruments_work_row', :locals => {:instruments_work_row_id => instruments_work_row_id}%>
+			    <% end %>
+			    <tr id="add_instruments_work">
+			        <td colspan="4">
+			            <%= link_to_remote 'Add instrument...', :url => {:action => 'instruments_work_add', :work_id => @work, :instrument_id => 1}%>
+			        </td>
+			    </tr>
+			</table>
+		</td>
+    </tr>
+    <tr>
+        <td class="label">Category:</td>
+		<td colspan="3">
+			<table>
+	            <% (session[:instrumentations_works] || []).each_index do |iw_row_id|%>
+	                <%=render :partial => 'instrumentations_work_row', :locals => {:instrumentations_work_row_id => iw_row_id}%>
+	            <% end %>
+			    <tr id="add_instrumentations_work">
+			        <td colspan="4">
+			            <%= link_to_remote 'Add category...', 
+			                               :url => {:action => 'instrumentations_work_add', :work_id => @work.id, :instrumentation_id => 11}%>
+			        </td>
+				</tr>
+			</table>
+        </td>
+    </tr>
+ 
+    <tr>
+        <td class="label">First published:</td>
+        <td colspan="3"><%=text_field 'work', 'published', :size => 60 %></td>
+	</tr>
+
+    <tr>
+        <td class="label">Related works:</td>
+		<td colspan="3">
+			<table>
+	            <% (session[:work_relations] || []).each_index do |rw_row_id|%>
+	                <%=render :partial => 'work_relation_row', :locals => {:work_relation_row_id => rw_row_id}%>
+	            <% end %>
+			    <tr id="add_work_relation">
+			        <td colspan="4">
+			            <%= link_to_remote 'Add related work...', 
+			                               :url => {:action => 'work_relation_add', :work_id => @work.id}%>
+			        </td>
+			    </tr>
+			</table>
+		</td>
+    </tr>
+ 
+    <tr>
+        <td class="label">Misc. info:</td>
+        <td colspan="3"><%=text_area 'work', 'misc_info', :cols => 60, :rows => 4 %></td>
+    </tr>
+    <tr>
+        <td class="label">References:</td>
+		<td colspan="3">
+			<table>
+				<tr><th>Reference</th><th>Comment</th></tr>
+			    <% session[:quotations_works].each_index do |quotations_work_row_id|%>
+			        <%=render :partial => 'quotations_work_row', :locals => {:quotations_work_row_id => quotations_work_row_id}%>
+			    <% end %>
+			    <tr id="add_quotations_work">
+			        <td colspan="4">
+			            <%= link_to_remote 'Add reference...', :url => {:action => 'quotations_work_add', :work_id => @work, :quotation_id => 1}%>
+			        </td>
+			    </tr>
+			</table>
+		</td>
+    </tr>
+	<tr>
+        <td class="label">Intern info - Bruce:</td>
+        <td colspan="3"><%= text_area 'work', 'intern_info_bruce',  :cols => 60, :rows => 1 %></td>
+	</tr>
+	<tr>
+        <td class="label">Intern info - Peter:</td>
+        <td colspan="3"><%=text_area 'work', 'intern_info_peter',  :cols => 60, :rows => 4%></td>
+    </tr>
+
+	<tr>
+        <td class="label">Free downloads:</td>
+		<td colspan="3">
+			<table>
+				<tr><th>Score/parts<br/>Material</th><th>Link<br/>Comment</th></tr>
+			    <% session[:downloads].each_index do |download_row_id|%>
+			        <%=render :partial => 'download_row', :locals => {:download_row_id => download_row_id}%>
+			    <% end %>
+			    <tr id="add_download">
+			        <td colspan="4">
+			            <%= link_to_remote 'Add download...', :url => {:action => 'download_add', :work_id => @work, :material_id => 1}%>
+			        </td>
+			    </tr>
+			</table>
+		</td>
+    </tr>
+
+	<tr>
+        <td class="label">Modern editions:</td>
+		<td colspan="3">
+			<table>
+				<tr><th>Publisher</th><th>Comment</th></tr>
+			    <% session[:publishers_works].each_index do |publishers_work_row_id|%>
+			        <%=render :partial => 'publishers_work_row', :locals => {:publishers_work_row_id => publishers_work_row_id}%>
+			    <% end %>
+			    <tr id="add_publishers_work">
+			        <td colspan="4">
+			            <%= link_to_remote 'Add modern edition...', :url => {:action => 'publishers_work_add', :work_id => @work, :publisher_id => 1}%>
+			        </td>
+			    </tr>
+			</table>
+		</td>
+    </tr>
+
+    <tr>
+        <td class="label">Location of originals:</td>
+		<td colspan="3">
+			<table>
+				<tr><th>Library</th><th>Comment</th></tr>
+			    <% session[:libraries_works].each_index do |libraries_work_row_id|%>
+			        <%=render :partial => 'libraries_work_row', :locals => {:libraries_work_row_id => libraries_work_row_id}%>
+			    <% end %>
+			    <tr id="add_libraries_work">
+			        <td colspan="4">
+			            <%= link_to_remote 'Add location...', 
+			                               :url => {:action => 'libraries_work_add', :work_id => @work, :library_id => 1}%>
+			        </td>
+			    </tr>
+			</table>
+		</td>
+    </tr>
+</table>

@@ -1,0 +1,56 @@
+<div id="latest_events">
+  <h1>Latest Events</h1>
+  <div id="event_menu">
+    <ul>
+      <li id="event_menu_all" class="selected">
+        <a href="javascript:show_events('all');">All</a>
+      </li>
+      <li id="event_menu_new">
+        <a href="javascript:show_events('new');">New</a>
+      </li>
+      <li id="event_menu_changes">
+        <a href="javascript:show_events('changes');">Changed</a>
+      </li>
+    </ul>
+  </div>
+  <div id="latest_events_content">
+    <div id="events_all">
+      <% @all_events.each do |event| %>
+        <div class="event">
+          <p class="date"><%=event[:date].strftime("%d.%m.%Y")%></p>
+          <%= render :partial => event[:type].to_s, :locals => { :event => event, :index => nil } %>
+        </div>
+      <% end %>
+      <p class="see_all">
+        <%= link_to 'See all New Entries...', :controller => '/search', :action => 'search', :name => 'NewEntries' %>
+      </p>
+      <p class="see_all_2">
+        <%= link_to 'See all Changed Entries...', :controller => '/search', :action => 'search', :name => 'NewVersions' %>
+      </p>
+    </div>
+    <div id="events_new" style="display:none;">
+      <% @new_works.each_index do |index| %>
+        <% event = @new_works[index] %>
+        <div class="event">
+          <p class="date"><%=event[:date].strftime("%d.%m.%Y")%></p>
+          <%= render :partial => event[:type].to_s, :locals => { :event => event, :index => index } %>
+        </div>
+      <% end %>
+      <p class="see_all">
+        <%= link_to 'See all New Entries...', :controller => '/search', :action => 'search', :name => 'NewEntries' %>
+      </p>
+    </div>
+    <div id="events_changes" style="display:none;">
+      <% @versions.each_index do |index| %>
+        <% event = @versions[index] %>
+        <div class="event">
+          <p class="date"><%=event[:date].strftime("%d.%m.%Y")%></p>
+          <%= render :partial => event[:type].to_s, :locals => { :event => event, :index => index } %>
+        </div>
+      <% end %>
+      <p class="see_all">
+        <%= link_to 'See all Changed Entries...', :controller => '/search', :action => 'search', :name => 'NewVersions' %>
+      </p>
+    </div>
+  </div>
+</div>

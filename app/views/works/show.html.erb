@@ -1,0 +1,186 @@
+<%= render :partial => '/search/record_navigation' %>
+
+<h1>Full Record 
+    <% if @search and @search.record_index %><small>(<%= @search.record_index + 1 %> of <%= @search.number_of_records%>)</small><% end %>
+</h1>
+
+<%= render :partial => 'header'%>
+
+<div id="work_content">
+  <table>
+		<tr>
+			<td width ="85%">
+				<%= render :partial => 'title'%>
+			</td>
+			<td>
+			  <div id="show_incipit">
+				  <%= incipit_full_record(@work) %>
+				</div>
+			</td>
+		</tr>
+	</table>
+  <table>
+    <tr><td class="label">Opus:</td><td><%= hyphenate @work.opus %></td></tr>
+    <tr><td class="label">Key:</td><td><%= hyphenate @work.tune %></td></tr>
+    <tr>
+      <td class="label">Instrumentation:</td>
+      <td><%= link_to @work.instrumentation,
+            {:controller => '/abbreviations', :action => 'show'},
+            {:popup => ['new_window_name', 'height=300,width=600,scrollbars=yes'], :rel => 'inst_help'} %>
+          (Cat. <%=@work.instrumentations.collect{|i| i.code}.to_sentence%>)
+			</td>
+		</tr>
+    <tr><td class="label">First published:</td><td><%= hyphenate @work.published  %></td></tr>
+    <tr>
+      <td class="label"><%=@work.publishers.size == 1 ? "Modern edition" : "Modern editions"%>:</td>
+      <td>
+        <%= hyphenate if @work.publishers_works.size == 0 %>
+        <% @work.publishers_works.each do |edition|%>
+          <%= link_to truncate(edition.publisher.label, :length => 40), :controller => :publishers, :action => :show, :id => edition.publisher_id %>
+          <%= "(#{edition.comment})" if edition.comment and edition.comment != "" %>
+          <br />
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label"><%= @work.libraries.size == 1 ? "Library" : "Libraries" %>:</td>
+			<td>
+        <%= hyphenate if @work.libraries_works.size == 0 %>
+        <% @work.libraries_works.each do |lw|%>
+          <%= lw.library ? link_to(truncate(lw.library.nice_label, :length => 40), :controller => :libraries, :action => :show, :id => lw.library.id) : "---"%>
+          <%= "(#{lw.comment})" if lw.comment and lw.comment != "" %>
+          <br />
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label"><%= @work.downloads.size == 1 ? "Free download" : "Free downloads" %>:</td>
+      <td>
+        <%= hyphenate if @work.downloads.size == 0 %>
+        <% @work.downloads.each do |download|%>
+          <%= download.material.label%> <%= download.kind %> 
+          <a href="<%= download.link %>" target="_blank">Show Download</a><%= (", " + download.comment) unless download.comment.blank? %>
+          <br/>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">Misc. information:</td>
+      <td><%= hyphenate @work.misc_info %></td>
+    </tr>
+    <tr>
+      <td class="label"><%= @work.related_works.size == 1 ? "Related work" : "Related works" %>:</td>
+      <td>
+        <%= hyphenate if @work.related_works.size == 0 %>
+        <%= @work.related_works.
+						collect {|rel_work| link_to("#{rel_work.title}", :action => :show, :id => rel_work) + " by #{rel_work.composer.full_name}"}.
+						to_sentence.html_safe %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label"><%= @work.quotations.size == 1 ? "Reference" : "References" %>:</td>
+      <td>
+        <%= hyphenate if @work.quotations_works.size == 0 %>
+        <%= @work.quotations_works.collect{ |rw|
+            link_to(rw.quotation.label, :controller => :references, :action => :show, :id => rw.quotation.id) + 
+              ((rw.comment and rw.comment != "") ? " (#{rw.comment})" : "")
+            }.to_sentence.html_safe %>
+      </td>
+    </tr>
+
+		<tr>
+      <td class="label">New Comments:</td>
+		  <td>
+        <% if @work.new_additions.empty?%>
+			    There are no comments, please
+				  <%if logged_in?%>
+            <%= link_to 'add a comment', :action => 'add_comment', :id => @work, :search_id => params[:search_id] %>
+          <% else %>
+            <%= link_to 'log in', :controller => 'users', :action => 'login' %> to add a comment.
+          <%end%>
+        <% else %>
+          There <%= @work.new_additions.size == 1 ? 'is one comment' : "are #{@work.new_additions.size} commments" %>
+          <% if logged_in? %>
+            (<%= link_to 'add a comment', :action => 'add_comment', :id => @work%>).
+          <% else %>
+            (<%= link_to 'log in', :controller => 'users', :action => 'login'%> to add a comment).
+          <%end%>
+          
+          <table id="new_additions">
+            <% @work.new_additions.each do |comment| %>
+              <tr>
+                <td>
+                  <%= mail_to comment.user.mail, comment.user.name%> commented <%=time_ago_in_words comment.created_at%> ago:
+                </td>
+                <td><%= comment.text.gsub("\n","<br/>") %></td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+      </td>
+    </tr>
+
+    <% if not @work.processed_additions.empty? %>
+      <tr>
+        <td class="label">Processed Comments:</td>
+        <td>
+          <% if @work.processed_additions.empty? %>
+            There are no comments, please
+            <%if logged_in?%>
+              <%= link_to 'add a comment', :action => 'add_comment', :id => @work, :search_id => params[:search_id] %>
+            <% else %>
+              <%= link_to 'log in', :controller => 'users', :action => 'login' %> to add a comment.
+            <%end%>
+          <% else %>
+            <a id="toggle_additions" class="toggle_link" href="javascript:toggle('processed_additions', 'toggle_additions', 'comments');">Show comments</a>
+            There <%= @work.processed_additions.size == 1 ? 'is one comment' : "are #{@work.new_additions.size} commments" %>
+            <% if logged_in? %>
+              (<%= link_to 'add a comment', :action => 'add_comment', :id => @work %>).
+            <% else %>
+              (<%= link_to 'log in', :controller => 'users', :action => 'login'%> to add a comment).
+            <% end %>
+            
+            <table id="processed_additions" style="display:none">
+              <% @work.processed_additions.each do |comment| %>
+                <tr>
+                  <td>
+                    <%= mail_to comment.user.mail, comment.user.name%> commented <%=time_ago_in_words comment.created_at%> ago:
+                  </td>
+                  <td><%= comment.text.gsub("\n","<br/>") %></td>
+                </tr>
+              <% end %>
+            </table>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <td class="label">Changes:</td>
+      <td>
+        <% if @versions.empty? %>
+          ---
+        <% else %>
+          <a  id="toggle_versions2" class="toggle_link" href="javascript:toggle('versions2', 'toggle_versions2', 'changes');">Show changes</a>
+          There <%= @versions.size == 1 ? 'is one change' : "are #{@versions.size} changes" %>.
+          
+          <div id="versions2" style="display:none">
+            <% for version in @versions %>
+              <div class="version">
+                Changes applied on <%= version[:updated_at].strftime("%d.%m.%Y at %H:%M:%S") %>
+                <% if version[:addition]%>,
+                  based on an addition by <%= mail_to version[:addition].user.mail, version[:addition].user.name%>
+                <% end %>
+                <% if version[:comment] %>,
+                    based on information by <%= version[:comment].text %>.
+                <% end %>
+                <%= render :partial => 'version_diff2', :locals => {:version => version} %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+  
+  </table>
+</div>

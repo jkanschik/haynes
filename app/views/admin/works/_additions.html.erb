@@ -1,0 +1,22 @@
+<% if @work.additions.size > 0 %>
+	<fieldset><legend>Additions</legend>
+	<% @work.additions.each do |comment| %>
+      <div class="comment">
+          <% if edit and comment.state == "new"%>
+              <p class="admin">
+                  <%= submit_tag 'Save and version', :name => "version_#{comment.id}", :class => 'button'%>
+                  <%=link_to(image_tag('x.gif', :border => 0), {:action => 'addition_remove', :id => comment}, :method => :post)%>
+              </p>
+          <% end %>
+          <p class="posted"><%= mail_to comment.user.mail, comment.user.name%> commented <%=time_ago_in_words comment.created_at%> ago:</p>
+          <p><%=comment.text%></p>
+          <p>Current status : <%=comment.state%></p>
+      </div>
+    <% end %>
+    <% if @work.additions.empty?%>
+	      <div class="comment">
+	          <p>No comment has yet been added to this work.</p>        
+	      </div>
+	<% end %>
+	</fieldset>
+<% end %>

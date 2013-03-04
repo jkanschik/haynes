@@ -1,0 +1,12 @@
+<span id="publisher_<%=publisher_row_id%>">
+    <% usage = session[:publishers][publisher_row_id] %>
+    <%= publishers = Publisher.find(:all, :include => :country).map {|c| [truncate(c.label, :length => 40), c.id]}.sort!
+        select_tag("publisher_#{publisher_row_id}[usage_id]", options_for_select(publishers, usage.usage_id))
+    %>
+	
+	<%= submit_to_remote 'ok', 'ok',
+                       :url => {:action => 'publisher_save', :publisher_row_id => publisher_row_id, :usage_type => 'Publisher'},
+                       :html => {:class => 'button'} %>
+    <%= link_to_remote 'cancel', 
+                   :url => {:action => is_new ? 'publisher_destroy' : 'publisher_show', :publisher_row_id => publisher_row_id}%>
+</span>

@@ -1,0 +1,30 @@
+<%= render :partial => '/search/record_navigation' %>
+
+<h1>Full Record 
+    <% if @search %><small>(<%= @search.record_index + 1 %> of <%= @search.number_of_records%>)</small><% end %>
+</h1>
+
+<h1>Composer information for '<%= @composer.full_name %>'</h1>
+
+<p class="commands">
+    <%= link_to 'Edit', :action => 'edit', :id => @composer , :search_id => params[:search_id] %>
+</p>    
+
+<table>
+    <tr><td class="label">Composer Nr.:</td><td><%= @composer.id %></td></tr>
+    <tr><td class="label">State:</td><td><%= @composer.state %></td></tr>
+    <tr><td class="label">Name:</td><td><%= @composer.name %></td></tr>
+    <tr><td class="label">Alternative name:</td><td><%= @composer.alt_name %></td></tr>
+    <tr><td class="label">First name:</td><td><%= @composer.first_name %></td></tr>
+    <tr><td class="label">Alt First Name:</td><td><%= @composer.alt_first_name %></td></tr>
+    <tr><td class="label">Nickname:</td><td><%= @composer.nick_name %></td></tr>
+    <tr><td class="label">Name affix (Title):</td><td><%= @composer.affix_name %></td></tr>
+    <tr><td class="label">Alias names:</td><td><%= @composer.alias.collect{|a| a.name}.to_sentence %></td></tr>
+    <tr><td class="label">(Info) born:</td><td><%= @composer.info_born %><%= @composer.born %></td></tr>
+    <tr><td class="label">(Info) dead:</td><td><%= @composer.info_dead %><%= @composer.dead %></td></tr>
+    <tr><td class="label">Life info:</td><td><%= @composer.life_info %></td></tr>
+    <tr><td class="label">Oboist:</td><td><%= code_label @composer.oboist, 'yes_no' %></td></tr>
+    <tr><td class="label">Misc. information:</td><td><%= @composer.misc_info %></td></tr>
+    <tr><td class="label">Intern Info:</td><td><%= @composer.intern_info %></td></tr>
+    <tr><td class="label">Done:</td><td><%= code_label @composer.done, 'done' %></td></tr>
+</table>

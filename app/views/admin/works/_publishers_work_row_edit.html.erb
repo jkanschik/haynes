@@ -1,0 +1,22 @@
+<tr id="publishers_work_<%=publishers_work_row_id%>">
+    <td>
+    <% pw = session[:publishers_works][publishers_work_row_id] %>
+
+    <%= publishers = Publisher.find(:all, :order => 'label').map {|c| [truncate(c.label, :length => 40), c.id]}
+        select_tag("publishers_work_#{publishers_work_row_id}[publisher_id]", options_for_select(publishers, pw.publisher_id))
+    %>
+    </td>
+    <td>
+        <%=text_area_tag "publishers_work_#{publishers_work_row_id}[comment]", pw.comment, :rows => 3 %>
+    </td>
+    <td>
+    <%= submit_to_remote 'ok', 'ok',
+                       :url => {:action => 'publishers_work_save', :publishers_work_row_id => publishers_work_row_id},
+                       :html => {:class => 'button'} %>
+    </td>
+    <td>
+    <%= link_to_remote 'cancel', 
+                   :url => {:action => is_new ? 'publishers_work_destroy' : 'publishers_work_show', :publishers_work_row_id => publishers_work_row_id}%>
+    </td>
+    
+</tr>

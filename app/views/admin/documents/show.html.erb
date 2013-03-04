@@ -1,0 +1,52 @@
+<p class="commands">
+	<%= link_to 'Edit', :action => 'edit', :id => @document%>
+</p>    
+
+<h1>Document</h1>
+
+<table>
+    <tr>
+        <td class="label">Document No.:</td>
+        <td colspan="3"><%=@document.id%></td>
+    </tr>
+    <tr>
+        <td class="label">Title:</td>
+        <td colspan="3"><%=@document.title%></td>
+    </tr>
+    <tr>
+        <td class="label">Info:</td>
+        <td colspan="3"><%=@document.info%></td>
+    </tr>
+    <tr>
+        <td class="label">Works:</td>
+        <td colspan="3">
+            <% @document.works.each do |w|%>
+		        <%= link_to "#{w.composer.name}, #{w.title};", {:controller => :works, :action => 'show', :id => w} %> <br/>
+            <% end %>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">Composers:</td>
+        <td colspan="3">
+            <% @document.composers.each do |c|%>
+		        <%= link_to "#{c.name}", {:controller => :composers, :action => 'show', :id => c} %> <br/>
+            <% end %>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Libraries:</td>
+        <td colspan="3">
+            <% @document.libraries.each do |l|%>
+		        <%= link_to "#{l.nice_label}", {:controller => :libraries, :action => 'show', :id => l} %> <br/>
+            <% end %>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Publishers:</td>
+        <td colspan="3">
+            <% @document.publishers.each do |p|%>
+		        <%= link_to "#{p.label}", {:controller => :publishers, :action => 'show', :id => p} %> <br/>
+            <% end %>
+        </td>
+    </tr>
+</table> 

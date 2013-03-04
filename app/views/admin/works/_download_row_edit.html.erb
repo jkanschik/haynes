@@ -1,0 +1,26 @@
+<% download = session[:downloads][download_row_id] %>
+<tr id="download_<%=download_row_id%>">
+    <td>
+      <%= select_tag("download_#{download_row_id}[kind]", options_for_select(download_kind, download.kind))
+      %>
+	<br/>
+	<br/>
+      <%= materials = Material.find(:all).map {|c| [truncate(c.label, :length => 40), c.id]}.sort!
+          select_tag("download_#{download_row_id}[material_id]", options_for_select(materials, download.material_id))
+      %>
+    </td>
+    <td>
+        <%=text_area_tag "download_#{download_row_id}[link]", download.link, :rows => 3 %><br/>
+        <%=text_area_tag "download_#{download_row_id}[comment]", download.comment, :rows => 3 %>
+    </td>
+    <td>
+    <%= submit_to_remote 'ok', 'ok',
+                       :url => {:action => 'download_save', :download_row_id => download_row_id},
+                       :html => {:class => 'button'} %>
+    </td>
+    <td>
+    <%= link_to_remote 'cancel', 
+                   :url => {:action => is_new ? 'download_destroy' : 'download_show', :download_row_id => download_row_id}%>
+    </td>
+    
+</tr>

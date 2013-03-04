@@ -1,0 +1,25 @@
+<h1>Login</h1>
+
+<%= form_tag '/users/login', {:class => 'login'} do %>
+  <div class="form">
+    <p>
+      To log in, please enter your user name and your password.
+      If you are logged in, you can add comments to works.
+    </p>
+    <p>
+      If you don't have a user name and password yet, please <%= link_to 'register', :action => :register%> first.
+    </p>
+    <% if @errors and @errors[:authentication] %>
+      <p class="error">
+        Please check your user name and password, this combination is not valid.
+      </p>
+    <% end %>
+
+    <%= labelled_text_field 'Login name:', :user, :logname %>
+    <%= labelled_password_field 'Password:', :user, :password, :value => "" %>
+    <%= labelled_check_box 'Remember me?', 'remember_me', 1, false %>
+  
+    <%= submit_tag 'Login',:id => 'submit', :class => 'button' %>
+  
+  </div>
+<% end %>

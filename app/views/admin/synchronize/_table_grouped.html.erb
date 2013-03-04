@@ -1,0 +1,31 @@
+<h2><%= entity.pluralize() %></h2>
+<% if records.size() == 0 %>
+There are no changes for <%= entity.pluralize() %>.
+<% else %>
+<table>
+	<tr><th/><th><%= entity %> Id</th><th>Type</th><th>Id</th><th>Label</th><th>Type of change<th>Updated at</th></tr>
+	<% records.each do |id, records_for_id| %>
+		<% records_for_id.each_index do |i| %>
+			<% record = records_for_id[i] %>
+			<tr id="<%= record[:type] + record[:id].to_s %>">
+				<% if i == 0 %>
+					<td rowspan="<%=records_for_id.size()%>">
+						<% params = records_for_id.collect { |r| {:id => r[:id], :entity => r[:type], :method => {"Added" => :post, "Changed" => :put, "Deleted" => :delete}[r[:type_of_change]]} } %>
+						<%= link_to_remote "Send online",
+								:url => {:action => "update_outgoing", :records => params},
+								:failure => "alert('HTTP Error ' + request.status + '!')" %>
+					</td>
+					<td rowspan="<%=records_for_id.size()%>">
+						<%= id.nil? ? "not known" : link_to(id, {:controller => entity.pluralize().downcase(), :action => :show, :id => id}, :target => "_blank") %>
+					</td>
+				<% end %>
+				<td><%= record[:type] %></td>
+				<td><%= record[:id] %></td>
+				<td><%= record[:label] %></td>
+				<td><%= record[:type_of_change] %></td>
+				<td><%= record[:updated_at] %></td>
+       		</tr>
+		<% end %>
+	<% end %>
+</table>
+<% end %>

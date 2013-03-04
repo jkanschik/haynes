@@ -1,0 +1,17 @@
+<%= error_messages_for 'problem' %>
+
+<table>
+    <tr>
+        <td class="label">Category:</td>
+        <td><%=text_field 'problem', 'category', :size => 20, :maxlength => 20 %></td>
+    </tr>
+    <tr>
+        <td class="label">Title:</td>
+        <td><%=text_field 'problem', 'title', :size => 60, :maxlength => 60 %></td>
+    </tr>
+    <tr>
+        <td class="label">Content:</td>
+        <td><%=text_area 'problem', 'content', :cols => 60, rows: => 4 %></td>
+    </tr>
+
+</table>    

@@ -1,0 +1,15 @@
+<tr id="work_relation_<%=work_relation_row_id%>">
+    <td>
+	    <%rw = session[:work_relations][work_relation_row_id] %>
+		<%= rw.related_work(true).title + " (id = " + rw.related_work.id.to_s + ")"%>
+	</td>
+	<td />
+    <td class="button">
+	    <%= link_to_remote image_tag('x.gif', :border => 0), 
+	                   :url => {:action => 'work_relation_destroy', :work_relation_row_id => work_relation_row_id}%>
+    </td>
+    <td class="button">
+	    <%= link_to_remote image_tag('edit.gif', :border => 0),
+	                       :url => {:action => 'work_relation_edit', :work_relation_row_id => work_relation_row_id}%>
+    </td>
+</tr>

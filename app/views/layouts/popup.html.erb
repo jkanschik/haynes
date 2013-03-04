@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Haynes catalog<%= " - " + @title if @title%></title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+	<meta name="verify-v1" content="OeO2P9h75k//c5QNlcRrEecwQIrTzrwr/jCGrOeDX6M=" />
+</head>
+<body>
+  <%= yield  %>
+</body>
+</html>

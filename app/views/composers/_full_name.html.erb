@@ -1,0 +1,9 @@
+<% 	alt_names = [composer.alt_name].concat(composer.alias.collect{|a| a.name}).delete_if{|name| name == ""}.to_sentence
+	if defined? create_link and create_link 
+		name = link_to composer.name, :controller => 'composers', :action => 'show', :id => composer
+	else
+		name = composer.name
+	end
+%>
+<%= composer.affix_name %>
+<%= name %><%= " (#{alt_names})" if alt_names != ""%><%=" (#{composer.nick_name})" if composer.nick_name != ""%>

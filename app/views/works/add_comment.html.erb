@@ -1,0 +1,13 @@
+<h1>New comment</h1>
+
+<h2><%= @work.title %> by <%= @work.composer.full_name %></h2>
+
+<% form_tag :action => 'add_comment', :search_id => params[:search_id]  do %>
+  <div class="form">
+    Please add your comment below:
+    <%= text_area_tag 'text', '', :cols => 80, :rows => 10 %>
+    <br />
+    <%= submit_tag "Save", :class => 'button' %>
+    <%= submit_tag "Cancel", :class => 'button' %>
+  </div>
+<% end %>

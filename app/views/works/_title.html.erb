@@ -1,0 +1,25 @@
+<h1>
+  <%= render :partial => "/composers/full_name", :locals => {:composer => @work.composer, :create_link => true} %><%= ", #{@work.composer.first_name}" if @work.composer.first_name != ""%>
+  <%= "(#{@work.composer.alt_first_name})" if @work.composer.alt_first_name != "" %>
+
+  <%= render :partial => "/composers/life_info", :locals => {:composer => @work.composer} %>
+  <%= "*" if @work.composer.oboist == 'Y' %>
+</h1>
+
+<% @work.composers_works.group_by {|cw| cw.category}.each do |category, composers_works| %>
+  <div style="margin-left:3em">
+    <h2 style="margin:0px">
+      <%= category %>
+      <%= composers_works.
+          collect {|cw| link_to(cw.composer.name, :controller => 'composers', :action => 'show', :id => cw.composer) + ", " + cw.composer.first_name}.
+          to_sentence({:words_connector => " or "}) %>
+    </h2>
+  </div>
+<% end %>
+
+<div style="margin: 2em 0em 2em 0em">
+  <h1><%= @work.title %></h1>
+  <% if @work.main_title != "" %>
+    <h2>in <%= @work.main_title %> <%= "(#{@work.position_title})" if @work.position_title != "" %>
+  <% end %>
+</div>

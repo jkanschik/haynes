@@ -1,0 +1,20 @@
+<tr id="quotations_work_<%=quotations_work_row_id%>">
+    <td>
+	    <% qw = session[:quotations_works][quotations_work_row_id] %>
+	    <%= quotations = Quotation.find(:all, :order => 'label').map {|c| [truncate(c.label, :length => 40), c.id]}
+	        select_tag("quotations_work_#{quotations_work_row_id}[quotation_id]", options_for_select(quotations, qw.quotation_id))
+	    %>
+    </td>
+    <td>
+        <%=text_area_tag "quotations_work_#{quotations_work_row_id}[comment]", qw.comment, :rows => 3 %>
+    </td>
+    <td class="button">
+	    <%= submit_to_remote 'ok', 'ok',
+	                       :url => {:action => 'quotations_work_save', :quotations_work_row_id => quotations_work_row_id},
+	                       :html => {:class => 'button'} %>
+    </td>
+    <td>
+	    <%= link_to_remote 'cancel', 
+	                   :url => {:action => is_new ? 'quotations_work_destroy' : 'quotations_work_show', :quotations_work_row_id => quotations_work_row_id}%>
+    </td>
+</tr>

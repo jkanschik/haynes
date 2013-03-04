@@ -1,0 +1,84 @@
+<table>
+  <tr>
+    <th width="20%">Field</th>
+    <th width="40%">Old value</th>
+    <th width="40%">New value</th>
+  </tr>
+  <% version[:diff].each do |column, diff| %>
+    <% if diff.instance_of? Hash %>
+      <tr class="<%= cycle('odd', 'even') %>">
+        <td><%= column.capitalize %></td>
+        <td><%= diff[:old] %></td>
+        <td><%= diff[:new] %></td>
+      </tr>
+    <% elsif column == "libraries" %>
+      <% diff.each do |d| %>
+      <tr class="<%= cycle('odd', 'even') %>">
+        <td><%= column.capitalize %></td>
+        <td>
+          <% if d[:old] %>
+            <%= d[:old].library ? "#{truncate(d[:old].library.nice_label, :length => 40)}" : "---" %>
+            /
+            <%= hyphenate d[:old].comment %>
+          <% else %>
+            ---
+          <% end %>
+        </td>
+        <td>
+          <% if d[:new] %>
+            <%= d[:new].library ? "#{truncate(d[:new].library.nice_label, :length => 40)}" : "---" %>
+            /
+            <%= hyphenate d[:new].comment %>
+          <% else %>
+            ---
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    <% elsif column == "publishers" %>
+      <% diff.each do |d| %>
+      <tr class="<%= cycle('odd', 'even') %>">
+        <td><%=column.capitalize%></td>
+        <td>
+          <% if d[:old]%>
+            <%= d[:old].publisher ? "#{truncate(d[:old].publisher.label, :length => 40)}" : "---" %>
+            /
+            <%= hyphenate d[:old].comment %>
+          <% else %>
+            ---
+          <% end %>
+        </td>
+        <td>
+          <% if d[:new] %>
+            <%= d[:new].publisher ? "#{truncate(d[:new].publisher.label, :length => 40)}"  : "---" %>
+            /
+            <%= hyphenate d[:new].comment %>
+          <% else %>
+            ---
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    <% elsif column == "instrumentations" %>
+      <% diff.each do |d| %>
+      <tr class="<%= cycle('odd', 'even') %>">
+        <td><%=column.capitalize%></td>
+        <td>
+          <% if d[:old] && d[:old].instrumentation %>
+            <%= "#{truncate(d[:old].instrumentation.code, :length => 40)}" %>
+          <% else %>
+            ---
+          <% end %>
+        </td>
+        <td>
+          <% if d[:new] && d[:new].instrumentation %>
+            <%= "#{truncate(d[:new].instrumentation.code, :length => 40)}" %>
+          <% else %>
+            ---
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+</table>

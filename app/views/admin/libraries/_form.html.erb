@@ -1,0 +1,48 @@
+<%= error_messages_for 'library' %>
+
+<table>
+    <tr>
+        <td class="label">Country:</td>
+        <td><%=select 'library', 'country_id', countries, {:prompt => 'Select Country (mandatory)'} %></td>
+    </tr>
+    <tr>
+        <td class="label">Code place:</td>
+        <td><%=text_field 'library', 'code_place', :size => 60, :maxlength => 40 %></td>
+    </tr>
+    <tr>
+        <td class="label">City:</td>
+        <td><%=text_field 'library', 'city', :size => 60, :maxlength => 40 %></td>
+    </tr>
+    <tr>
+        <td class="label">Name:</td>
+        <td><%=text_field 'library', 'name', :size => 60, :maxlength => 255 %></td>
+    </tr>
+    <tr>
+        <td class="label">Label:</td>
+        <td><%=text_field 'library', 'label', :size => 60, :maxlength => 80 %></td>
+    </tr>
+    <tr>
+        <td class="label">URL:</td>
+        <td><%=text_field 'library', 'www', :size => 60, :maxlength => 200 %></td>
+    </tr>
+    <tr>
+        <td class="label">Done:</td>
+        <td><%=check_box 'library', 'done', {}, 'Y', 'N'%></td>
+    </tr>
+    <tr>
+        <td class="label">Misc. information:</td>
+        <td><%=text_area 'library', 'misc_info', :rows => 3, :cols => 60 %></td>
+    </tr>
+    <tr>
+        <td class="label">Successor:</td>
+        <td><%=select 'library', 'successor_id', libraries, {:include_blank => true} %></td>
+    </tr>
+    <tr>
+        <td class="label">Internal info:</td>
+        <td><%=text_area 'library', 'intern_info', :rows => 3, :cols => 60 %></td>
+    </tr>
+    <tr>
+        <td class="label">State:</td>
+        <td><%=select('library', 'state', code_select('state'), {}, {:onchange => "if (this.value != 'default') alert('Warning: You changed the state to something other than <default>!');"}) %></td>
+    </tr>
+</table>    

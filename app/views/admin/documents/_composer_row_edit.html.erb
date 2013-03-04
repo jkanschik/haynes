@@ -1,0 +1,12 @@
+<span id="composer_<%=composer_row_id%>">
+    <% usage = session[:composers][composer_row_id] %>
+    <%= composers = Composer.find(:all).map {|c| [truncate(c.name, :length => 40), c.id]}.sort!
+        select_tag("composer_#{composer_row_id}[usage_id]", options_for_select(composers, usage.usage_id))
+    %>
+	
+	<%= submit_to_remote 'ok', 'ok',
+                       :url => {:action => 'composer_save', :composer_row_id => composer_row_id, :usage_type => 'Composer'},
+                       :html => {:class => 'button'} %>
+    <%= link_to_remote 'cancel', 
+                   :url => {:action => is_new ? 'composer_destroy' : 'composer_show', :composer_row_id => composer_row_id}%>
+</span>

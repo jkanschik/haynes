@@ -1,0 +1,27 @@
+<h1>Listing compositions</h1>
+
+<table>
+  <tr>
+  <% for column in Work.content_columns %>
+    <th><%=table_header column.human_name, "Sort by #{column.name}", column.name, :action => 'list'%></th>
+  <% end %>
+  </tr>
+  
+<% for compositions in @works %>
+  <tr class="<%= cycle('odd', 'even')%>">
+  <% for column in Work.content_columns %>
+    <td><%=h compositions.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :controller => '/works', :action => 'show', :id => compositions %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => compositions %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => compositions }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @work_pages.current.previous, :order => @order  } if @work_pages.current.previous %>
+<%= link_to 'Next page', { :page => @work_pages.current.next, :order => @order  } if @work_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New compositions', :action => 'new' %>

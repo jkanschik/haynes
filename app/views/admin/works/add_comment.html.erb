@@ -1,0 +1,12 @@
+<h1>New comment for <%=@work.title%></h1>
+
+<% form_tag :action => 'add_comment' do %>
+    <div class="form">
+        <%=labelled_text_field 'Title:', 'title', @title%>
+        <%=labelled_text_field 'Comment:', 'text', @text%>
+    
+
+  <%= submit_tag "Save" %>
+  <%= submit_tag "Cancel" %>
+    </div>
+<% end %>

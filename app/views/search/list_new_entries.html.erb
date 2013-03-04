@@ -1,0 +1,38 @@
+<%= render :partial => "header" %>
+
+<table class="list">
+	<tr>
+        <th><%=table_header @search, "Added", "Sort by date", "works.created_at"%></th>
+        <th><%=table_header @search, "Composer", "Sort by composer", "composers.full_name"%></th>
+        <th />
+    	<th><%=table_header @search, "Title", "Sort by title", "works.title"%></th>
+    	<th ><%=table_header @search, "Categ.", "Sort by category", "instrumentations.code"%></th>
+	</tr>
+	<%	@page.each_index do |i| 
+		work = Work.find @page[i] %>
+  		<tr <%= "id='current_record'" if work.id == @search.record %>
+            onmouseover="document.getElementById('current_record').id = null; this.onmouseover=null;"
+  			class="<%= cycle('odd', 'even')%>"
+    		onclick="window.location.href='<%= url_for :action => :show, :id => @search.search_id, :record => @search.records_per_page * (@search.page_number - 1) + i%>'"
+			title='View Full Record for this work<%= " mit der ID #{work.id}" if admin?%>'>
+            <td><%= work.created_at.strftime("%d.%m.%Y") %></td>
+            <td><%= work.composer.nil? ? work.composer_id : work.composer.full_name%></td>
+    		<td><%=incipit work%></td>
+            <td><%= work.title%><%=work.identifier%></td>
+    		<td>
+        		<% work.instrumentations(@reload_instr).each do |instrumentation| %>
+            		<span title="<%=instrumentation.code%>: <%=instrumentation.label %>">
+            		 	<%=instrumentation.code%>
+					</span> <br />
+        		<% end %>
+    		</td>
+		</tr>
+	<% end %>
+</table>
+
+<% if @page.size > 9%>
+    <div id="search_footer">
+        <%= render :partial => "page_size"%>
+        <%= render :partial => "pager"%>
+    </div>
+<% end %>

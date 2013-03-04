@@ -1,0 +1,22 @@
+<tr id="composers_work_<%=composers_work_row_id%>">
+    <td>
+    <% cw = session[:composers_works][composers_work_row_id]
+       if cw.composer(true).nil? %>
+            ---
+    <% else %>
+        <%=link_to(truncate(cw.composer.full_name, :length => 40), :controller => :composers, :action => :show, :id => cw.composer.id)%>
+    <% end %>
+    </td>
+	<td>
+		<%= cw.category%>
+	</td>
+    <td />
+    <td class="button">
+        <%= link_to_remote image_tag('x.gif', :border => 0), 
+                       :url => {:action => 'composers_work_destroy', :composers_work_row_id => composers_work_row_id}%>
+    </td>
+    <td class="button">
+    <%= link_to_remote image_tag('edit.gif', :border => 0), 
+                   :url => {:action => 'composers_work_edit', :composers_work_row_id => composers_work_row_id}%>
+    </td>
+</tr>

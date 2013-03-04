@@ -1,0 +1,24 @@
+<div id="work_admin_header">
+	<div class="commands">
+		<%= link_to_remote 'Edit', 
+		                   :url => {:action => 'admin_block_edit', :id => @work},
+		                   :update => 'work_admin_header' %>
+	</div>
+	<table class="work_header">
+	    <tr>
+	        <td class="label">
+	        <%= link_to 'Done:', 
+	                    {:action => 'change_done', :id => @work, :search_id => params[:search_id]} %> <%= code_label(@work.done, 'done.work') %></td>
+            <td class="label">State: <%=code_label @work.state, 'state.work' %></td>
+	        <td class="label">Created: <%=@work.created_at.strftime(  "%d.%m.%Y" )%></td>
+	        <td class="label">Last updated: <%=@work.updated_at.strftime(  "%d.%m.%Y" ) if @work.updated_at%></td>
+	    </tr>
+	    <tr>
+	        <td class="label">Oboe: <%=hyphenate @work.oboe_array.to_sentence if @work.oboe_array%></td>
+	        <td class="label">Country: <%=hyphenate @work.country_array.to_sentence if @work.country_array%></td>
+	        <td class="label">Here: <%=@work.here ? "Yes" : "No" %></td>
+	        <td class="label">Number: <%=@work.number%></td>
+	      </tr>
+	</table>
+    <%= render :partial => '/works/header'%>
+</div>

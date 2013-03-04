@@ -1,0 +1,9 @@
+<h1>Neuer Kommentar</h1>
+
+Benutzer <%= @addition.user.name %> hat folgenden Kommentar für das Werk 
+<%= link_to @addition.work.title, :host => 'haynes-catalog.net', :controller => :works, :action => :show, :id => @addition.work %>
+von <%= @addition.work.composer.full_name %> geschrieben:
+
+<div><%= @addition.text%></div>
+
+	

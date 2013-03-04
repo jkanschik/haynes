@@ -1,0 +1,38 @@
+= render :partial => '/search/record_navigation'
+
+%h1
+  Full Record
+  - if @search and @search.record_index
+    %small (#{@search.record_index + 1} of #{@search.number_of_records})
+
+%h1 Publisher information for #{@publisher.label}
+
+.row
+  %label Name:
+  %value= @publisher.name
+
+.row
+  %label Location:
+  %value #{@publisher.city}, #{@publisher.country.label if @publisher.country}
+
+.row
+  %label Homepage:
+  %value= (@publisher.www == nil or @publisher.www == "") ? hyphenate : link_to(@publisher.www, @publisher.www, :target => 'new')
+
+.row
+  %label Misc. Information:
+  %value= hyphenate @publisher.comment_english
+
+- if @publisher.successor
+  .row
+    %label Successor:
+    %value= link_to @publisher.successor.label, publisher_path(@publisher.successor)
+
+.row
+  %label Relevant Entries:
+  %value= @publisher.works.active.count
+
+- if @publisher.predecessors.size > 0
+  .row
+    %label Is successor of:
+    %value= @publisher.predecessors.collect{ |p| link_to(p.label, publisher_path(p))}.join("<br />").html_safe

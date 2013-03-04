@@ -1,0 +1,8 @@
+<div id="publisher_<%=publisher_row_id%>">
+    <% publisher = session[:publishers][publisher_row_id].usage(true) %>
+	
+    <%= link_to_remote publisher.label,
+                       :url => {:action => 'publisher_edit', :publisher_row_id => publisher_row_id}%>
+    <%= link_to_remote image_tag('x.gif', :border => 0), 
+                   :url => {:action => 'publisher_destroy', :publisher_row_id => publisher_row_id}%>
+</div>

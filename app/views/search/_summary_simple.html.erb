@@ -1,0 +1,19 @@
+<p>	You searched for
+    <% if search.conditions[:instrumentation_id] %>
+        <% instr = Instrumentation.find(search.conditions[:instrumentation_id])[0] %>
+        <% if search.conditions[:composer_id] %>
+		    all works by composer <%= Composer.find(search.conditions[:composer_id])[0].full_name %>
+			and in category <%= "#{instr.code} (#{instr.label})" %>.
+		<% else %>
+            all works in category <%= "#{instr.code} (#{instr.label})" %>.
+		<% end %>
+	<% else %>
+        <% if search.conditions[:composer_id] %>
+            all works by composer <%= Composer.find(search.conditions[:composer_id])[0].full_name %>.
+        <% else %>
+            all works.
+        <% end %>
+	<% end %>
+
+	The search returned <%= search.number_of_records%> records.
+</p>

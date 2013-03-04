@@ -1,0 +1,17 @@
+<h1>Search Results</h1>
+<% if admin? %>
+		<div class="commands">
+			<% form_tag :action => 'change_to_done', :id => @search.search_id do %>
+		    	<%= submit_tag 'Change these items to UNDONE', :name => 'save', :class => 'admin button'%>
+			<% end %>
+		</div>
+
+<% end %>
+
+<div id="search_header">
+    <%= render :partial => @search.summary_name, :locals => {:search => @search} %>
+    <%= render :partial => "page_size"%>
+    <%= render :partial => "pager"%>
+    <%=link_to 'refresh', :action => 'refresh', :id => params[:id] if admin?%>
+</div>
+

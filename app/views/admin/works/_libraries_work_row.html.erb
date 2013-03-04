@@ -1,0 +1,19 @@
+<tr id="libraries_work_<%=libraries_work_row_id%>">
+    <td>
+    <% lw = session[:libraries_works][libraries_work_row_id]
+       if lw.library(true).nil? %>
+            ---
+    <% else %>
+        <%=link_to(truncate(lw.library.nice_label, :length => 40), :controller => :libraries, :action => :show, :id => lw.library.id)%>
+    <% end %>
+    </td>
+    <td><%=hyphenate lw.comment%></td>
+    <td class="button">
+        <%= link_to_remote image_tag('x.gif', :border => 0), 
+                       :url => {:action => 'libraries_work_destroy', :libraries_work_row_id => libraries_work_row_id}%>
+    </td>
+    <td class="button">
+    <%= link_to_remote image_tag('edit.gif', :border => 0), 
+                   :url => {:action => 'libraries_work_edit', :libraries_work_row_id => libraries_work_row_id}%>
+    </td>
+</tr>

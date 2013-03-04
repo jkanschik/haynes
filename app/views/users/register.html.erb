@@ -1,0 +1,22 @@
+<h1>User registration</h1>
+
+<%= form_tag '/users/register', {:class => 'login'} do %>
+  <div class="form">
+     <%= @user.errors.inspect %>
+    <p>
+      Since it might be of interest to all the users whose comments are attached,
+      please register with your real name and - in addition -
+      choose a username and a password to log in with.
+    </p>
+
+    <%= labelled_text_field 'Real name:', :user, :name, :size => 40 %>
+    <%= labelled_text_field 'Login name:', :user, :logname, :size => 40 %>
+    <%= labelled_text_field 'E-Mail adress:', :user, :mail, :size => 40 %>
+    <%= labelled_password_field 'Password:', :user, :orig_password, :size => 20 %>
+    <%= labelled_password_field 'Confirm password:', :user, :orig_password_confirmation, :size => 20 %>
+
+    <%= submit_tag 'Register', :id => 'submit', :class => 'button' %>
+    <%= submit_tag 'Reset', :id => 'reset', :type =>'reset', :class => 'button' %>
+
+  </div>
+<%end%>

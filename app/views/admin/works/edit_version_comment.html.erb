@@ -1,0 +1,72 @@
+<h2>Change comment or addition for a version</h2>
+<% form_tag :action => 'update_version_comment', :id => @work, :version_id => @version[:version], :search_id => params[:search_id] do%>
+
+	<fieldset>
+		<legend>Changes in this version</legend>
+		<div class="version">
+			Changes applied on <%=@version[:updated_at].strftime("%d.%m.%Y at %H:%M:%S")%>
+			<%= render :partial => "/works/version_diff2", :locals => { :version => @version } %>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Comments</legend>
+		<table>
+			<tr>
+				<td>Select existing comment:</td>
+				<td>
+					<%=select 'comment', 'id', 
+						[["--- No comment ---", -2], ["--- Create new comment ---", -1]] | @version_comments, 
+						{:selected => 2}, :onChange => "changeTextArea(this, document.getElementById('comment_text'))" %></td>
+			</tr>
+			<tr>
+				<td>Comment:</td>
+				<td><%=text_area 'comment', 'text', :cols=>60, :rows=>5%></td>
+			</tr>
+		</table>
+		<script type="text/javascript">
+			changeTextArea(
+				document.getElementById('comment_id'),
+				document.getElementById('comment_text')
+			)
+			function changeTextArea(select, textArea) {
+				if (select.value == "-2") {
+					textArea.value = "";
+					textArea.disabled=true;
+					textArea.blur();
+				} else if (select.value == "-1") {
+					textArea.disabled=false;
+					textArea.value = "";
+					textArea.focus();
+				} else {
+					textArea.value = select.options[select.selectedIndex].text;
+					textArea.disabled=true;
+					textArea.blur();
+				}
+			}
+		</script>
+	</fieldset>
+
+	<fieldset>
+		<legend>Additions</legend>
+		<table>
+			<tr><td><%=radio_button 'addition', 'id', ''%></td>
+				<td>Don't link this version to a comment</td>
+			</tr>
+			<% @work.additions.each do |comment| %>
+			<tr><td><%=radio_button 'addition', 'id', comment.id%></td>
+				<td>
+					<div class="comment">
+			          <p class="posted"><%= mail_to comment.user.mail, comment.user.name%> commented <%=time_ago_in_words comment.created_at%> ago:</p>
+			          <p><%=comment.text%></p>
+			          <p>Current status : <%=comment.state%></p>
+					</div>
+				</td>
+			</tr>
+		    <% end %>
+		</table>
+	</fieldset>
+
+    <%= submit_tag 'Save', :name => 'save', :class => 'button'%>
+    <%= submit_tag 'Cancel', :name => 'cancel', :class => 'button'%>
+<% end %>

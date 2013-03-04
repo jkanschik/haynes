@@ -1,0 +1,19 @@
+<tr id="quotations_work_<%=quotations_work_row_id%>">
+    <td>
+    <% qw = session[:quotations_works][quotations_work_row_id]
+       if qw.quotation(true).nil? %>
+            ---
+    <% else %>
+        <%=link_to(truncate(qw.quotation.label, :length => 40), :controller => :quotations, :action => :show, :id => qw.quotation.id)%>
+    <% end %>
+    </td>
+    <td><%=hyphenate qw.comment%></td>
+    <td class="button">
+	    <%= link_to_remote image_tag('x.gif', :border => 0), 
+				:url => {:action => 'quotations_work_destroy', :quotations_work_row_id => quotations_work_row_id}%>
+    </td>
+    <td class="button">
+    	<%= link_to_remote  image_tag('edit.gif', :border => 0),
+				:url => {:action => 'quotations_work_edit', :quotations_work_row_id => quotations_work_row_id}%>
+    </td>
+</tr>

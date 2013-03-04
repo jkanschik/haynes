@@ -1,0 +1,95 @@
+<%= error_messages_for 'document' %>
+
+<table>
+    <tr>
+        <td class="label">Document No.:</td>
+        <td colspan="3"><%=@document.id%></td>
+    </tr>
+    <tr>
+        <td class="label">Code:</td>
+	    <td><%=select 'document', 'code', ["work", "composer", "library", "publisher", "multiple", "doubtful"]%></td>
+     
+<!--        <td colspan="3"><%=text_field 'document', 'code', :size => 100%></td>
+-->    </tr>
+	
+    <tr>
+        <td class="label">Title:</td>
+        <td colspan="3"><%=text_field 'document', 'title', :size => 100%></td>
+    </tr>
+    <tr>
+        <td class="label">Info:</td>
+        <td colspan="3"><%=text_area 'document', 'info', :cols => 100, :rows => 3%></td>
+    </tr>
+    <tr>
+        <td class="label">Works:</td>
+        <td id="add_work">
+            <% (session[:works] || []).each_index do |work_row_id|%>
+                <%=render :partial => 'work_row', :locals => {:work_row_id => work_row_id}%>
+            <% end %>
+        </td>
+    </tr>
+    <tr>
+        <td class="label"/>
+        <td colspan="4">
+            <%= link_to_remote 'Add work...', 
+                               :url => {:action => 'work_add', :document_id => @document.id, :usage_type => 'Work'}%>
+        </td>
+    </tr>
+
+
+    <tr>
+        <td class="label">Composers:</td>
+        <td id="add_composer">
+            <% (session[:composers] || []).each_index do |composer_row_id|%>
+                <%=render :partial => 'composer_row', :locals => {:composer_row_id => composer_row_id}%>
+            <% end %>
+        </td>
+    </tr>
+    <tr>
+        <td class="label"/>
+        <td colspan="4">
+            <%= link_to_remote 'Add composer...', 
+                               :url => {:action => 'composer_add', :document_id => @document.id, :usage_type => 'Composer'}%>
+        </td>
+    </tr>
+
+
+
+    <tr>
+        <td class="label">Libraries:</td>
+        <td id="add_library">
+            <% (session[:libraries] || []).each_index do |library_row_id|%>
+                <%=render :partial => 'library_row', :locals => {:library_row_id => library_row_id}%>
+            <% end %>
+        </td>
+    </tr>
+    <tr>
+        <td class="label"/>
+        <td colspan="4">
+            <%= link_to_remote 'Add library...', 
+                               :url => {:action => 'library_add', :document_id => @document.id, :usage_type => 'Library'}%>
+        </td>
+    </tr>
+
+
+
+    <tr>
+        <td class="label">Publishers:</td>
+        <td id="add_publisher">
+            <% (session[:publishers] || []).each_index do |publisher_row_id|%>
+                <%=render :partial => 'publisher_row', :locals => {:publisher_row_id => publisher_row_id}%>
+            <% end %>
+        </td>
+    </tr>
+    <tr>
+        <td class="label"/>
+        <td colspan="4">
+            <%= link_to_remote 'Add publisher...', 
+                               :url => {:action => 'publisher_add', :document_id => @document.id, :usage_type => 'Publisher'}%>
+        </td>
+    </tr>
+
+
+
+
+</table>    

@@ -1,0 +1,85 @@
+<%= error_messages_for 'composer' %>
+
+<table>
+    <tr>
+        <td class="label">Composer Nr.:</td>
+        <td><%=@composer.id%></td>
+    </tr>
+    <tr>
+        <td class="label">State:</label></td>
+        <td><%=text_field 'composer', 'state', :value => 'default', :maxlength => 40 %></td>
+    </tr>
+    <tr>
+        <td class="label">Name:</label></td>
+        <td><%=text_field 'composer', 'name', :maxlength => 40 %></td>
+    </tr>
+    <tr>
+        <td class="label">Alternative Name:</label></td>
+        <td><%=text_field 'composer', 'alt_name', :maxlength => 40 %></td>
+    </tr>
+    <tr>
+        <td class="label">First Name:</label></td>
+        <td><%=text_field 'composer', 'first_name', :maxlength => 40 %></td>
+    </tr>
+    <tr>
+        <td class="label">Alt First Name:</label></td>
+        <td><%=text_field 'composer', 'alt_first_name', :maxlength => 40 %></td>
+    </tr>
+    <tr>
+        <td class="label">Nickname:</label></td>
+        <td><%=text_field 'composer', 'nick_name', :size => 60 %></td>
+    </tr>
+    <tr>
+        <td class="label">Name affix (Title):</label></td>
+        <td><%=text_field 'composer', 'affix_name', :size => 60 %></td>
+    </tr>
+
+    <tr>
+        <td class="label">Alias names:</td>
+		<td>
+			<table>
+	            <% (session[:alias] || []).each_index do |a_row_id|%>
+	                <%=render :partial => 'alia_row', :locals => {:alia_row_id => a_row_id}%>
+	            <% end %>
+			    <tr id="add_alia">
+			        <td colspan="4">
+			            <%= link_to_remote 'Add alias...', 
+			                               :url => {:action => 'alia_add', :composer_id => @composer.id}%>
+			        </td>
+				</tr>
+			</table>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="label">(Info) Born:</label></td>
+        <td><%=text_field 'composer', 'info_born', :size => 2, :maxlength => 2 %> <%=text_field 'composer', 'born', :size => 4, :maxlength => 4 %></td>
+    </tr>
+    <tr>
+        <td class="label">(Info) Dead:</label></td>
+        <td><%=text_field 'composer', 'info_dead', :size => 2, :maxlength => 2 %> <%=text_field 'composer', 'dead', :size => 4, :maxlength => 4 %></td>
+    </tr>
+    <tr>
+        <td class="label">Life info:</label></td>
+        <td><%=text_field 'composer', 'life_info', :size => 60 %></td>
+    </tr>
+    <tr>
+        <td class="label">Oboist:</label></td>
+        <td><%=check_box 'composer', 'oboist', {}, 'Y', 'N' %></td>
+    </tr>
+    <tr>
+        <td class="label">Misc. Info:</label></td>
+        <td><%=text_area 'composer', 'misc_info', :rows => 3, :cols => 60 %></td>
+    </tr>
+    <tr>
+        <td class="label">Intern Info:</label></td>
+        <td><%=text_area 'composer', 'intern_info', :rows => 3, :cols => 60 %></td>
+    </tr>
+    <tr>
+        <td class="label">Done:</label></td>
+        <td><%=check_box 'composer', 'done', {}, 'Y', 'N' %></td>
+    </tr>
+    
+
+    
+</table>

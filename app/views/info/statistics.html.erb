@@ -1,0 +1,126 @@
+<h1>Statistics</h1>
+These statistics are supposed to give an impression of the growing of "The Haynes".<br><br>
+
+<table>
+	<tr>
+		<td>Number of Items included: </td>
+		<td align="right"><%= @works %></td>
+	</tr>
+	<tr>
+		<td>Of which not in MFO</td>
+		<td align="right"><%= @original_works %></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>Number of Pieces included: </td>
+		<td align="right"><%= @pieces %></td>
+	</tr>
+	<tr>
+		<td>Of which not in MFO</td>
+		<td align="right"><%= @original_pieces %></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>New modern Editions:</td>
+		<td align="right"><%= @editions%></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>Lost:</td>
+		<td align="right"><%= @lost_yes%></td>
+		<td>YES</td>
+	</tr>
+	<tr>
+		<td></td>          
+		<td align="right"><%= @lost_no%></td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td align="right"><%= @lost_part%></td>
+		<td>Partially</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>Changed items:</td>
+		<td align="right"><%= @versions %></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>Incipits:</td>
+		<td>Anzahl</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>Composers:</td>
+		<td align="right"><%= @composers %></td>
+	</tr>
+	<tr>
+		<td>Of which not in MFO:</td>
+		<td align="right"><%= @new_composers %></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+
+	<% if admin? %>
+		<tr>
+			<td>Works done</td>
+			<td align="right"><%= @done_yes %></td>
+			<td>Yes</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align="right"><%= @done_no %></td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align="right"><%= @done_pro %></td>
+			<td>Progress</td>
+		</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+		<tr>
+			<td>Libraries done</td>
+			<td align="right"><%= @library_done_yes %></td>
+			<td>Yes</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align="right"><%= @library_done_no %></td>
+			<td>No</td>
+		</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+		<tr>
+			<td>Publishers done</td>
+			<td align="right"><%= @publisher_done_yes %></td>
+			<td>Yes</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align="right"><%= @publisher_done_no %></td>
+			<td>No</td>
+		</tr>
+		
+	<% end %>
+</table>

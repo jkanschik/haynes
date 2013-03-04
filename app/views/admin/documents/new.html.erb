@@ -1,0 +1,9 @@
+<h1>File new document</h1>
+
+
+<% form_tag :action => 'create' do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create", :name => 'create', :class => 'button'%>
+  <%= submit_tag "Cancel", :name => 'cancel', :class => 'button'%>
+<% end %>
+

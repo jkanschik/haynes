@@ -1,0 +1,30 @@
+<%= render :partial => '/search/record_navigation' %>
+
+<h1>Full Record 
+    <% if @search %><small>(<%= @search.record_index + 1 %> of <%= @search.number_of_records%>)</small><% end %>
+</h1>
+
+<h1>Reference information for <%= @quotation.label %></h1>
+
+<p class="commands">
+    <%= link_to 'Edit', :action => 'edit', :id => @quotation , :search_id => params[:search_id]%>
+</p>    
+
+<table>
+    <tr><td class="label">Label:</td><td><%= @quotation.label%></td></tr>
+    <tr><td class="label">Title:</td><td><%= @quotation.title%></td></tr>
+    <tr><td class="label">Title detail:</td><td><%= @quotation.title_detail%></td></tr>
+    <tr><td class="label">Article:</td><td><%= @quotation.article%></td></tr>
+    <tr><td class="label">Author:</td><td><%= @quotation.author%></td></tr>
+    <tr><td class="label">Print - Publisher:</td><td><%= @quotation.print_publisher%></td></tr>
+    <tr><td class="label">Print - Location:</td><td><%= @quotation.print_location%></td></tr>
+    <tr><td class="label">Print - Year:</td><td><%= @quotation.print_year%></td></tr>
+    <tr><td class="label">Misc. information:</td><td><%= @quotation.misc_info%></td></tr>
+
+    <tr><td class="label">Peter - Intern information:</td><td><%= @quotation.peter_intern_info%></td></tr>
+    <tr><td class="label">Peter - Locations:</td><td><%= @quotation.peter_locations%></td></tr>
+    <tr><td class="label">Peter - Code:</td><td><%= @quotation.peter_code%></td></tr>
+    <tr><td class="label">Peter - Status:</td><td><%= @quotation.admin_status%></td></tr>
+    <tr><td class="label">Peter - State:</td><td><%= @quotation.state%></td></tr>
+
+</table>

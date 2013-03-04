@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Haynes</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="container">
+    <div id="header">
+      <img src = "/assets/title.png" alt = "The Haynes Catalog: Bibliography of Oboe Music by Peter Wuttke">
+        <div id="nav_wrapper">
+          <% if logged_in? and not admin? %>
+	           <div id="login_header">Logged in as: <%=current_user.name%></div>
+          <% end %>
+            <%= render :partial => "/navigation"%>
+        </div>
+  	</div>
+    <div class="line">
+  	  <div id="sidebar" class="column">
+  			<%= render(:partial => "/latest_events") if controller.controller_path == 'main' %>
+  			<%= render(:partial => "/quick_search", :locals => {:length => 30}) unless controller.controller_path == 'main' %>
+  			<%= render(:partial => "/search_history") unless controller.controller_path == 'main' %>
+  	  </div>
+  	  <div id="content" class="column"><%= yield  %></div>
+    </div>
+   	<div id="footer">
+  	 	Hosted by <a href="http://beauty-of-code.de">Beauty of Code</a>.
+  	</div>
+  </div>
+</body>
+</html>

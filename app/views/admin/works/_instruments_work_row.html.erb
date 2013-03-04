@@ -1,0 +1,14 @@
+<tr id="instruments_work_<%=instruments_work_row_id%>">
+    <% iw = session[:instruments_works][instruments_work_row_id] %>
+	<% iw.instrument(true) %>
+    <td><%=hyphenate iw.occurences %></td>
+    <td><%="#{iw.instrument.label} (#{iw.instrument.name})" %></td>
+    <td class="button">
+	    <%= link_to_remote image_tag('x.gif', :border => 0), 
+				:url => {:action => 'instruments_work_destroy', :instruments_work_row_id => instruments_work_row_id} %>
+    </td>
+    <td class="button">
+    	<%= link_to_remote  image_tag('edit.gif', :border => 0),
+				:url => {:action => 'instruments_work_edit', :instruments_work_row_id => instruments_work_row_id} %>
+    </td>
+</tr>

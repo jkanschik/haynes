@@ -1,0 +1,93 @@
+<%  first = true;
+  version[:diff].each do |column, diff|%>
+  <%= "</tr><tr>" unless first%>
+  <% first = false; %>
+  <% if diff.instance_of? Hash%>
+      <td><%=column%></td>
+      <td><%=diff[:old] %></td>
+      <td><%=diff[:new] %></td>
+  <% elsif column == "libraries" %>
+    <% diff.each do |d| %>
+      <td><%=column%></td>
+      <td>
+        <% if d[:old]%>
+          <%= d[:old].library ? "#{truncate(d[:old].library.nice_label, :length => 40)}" : "---"%>
+          /
+          <%= hyphenate d[:old].comment %>
+        <% else %>
+          ---
+        <% end %>
+      </td>
+      <td>
+        <% if d[:new]%>
+          <%= d[:new].library ? "#{truncate(d[:new].library.nice_label, :length => 40)}" : "---"%>
+          /
+          <%= hyphenate d[:new].comment %>
+        <% else %>
+          ---
+        <% end %>
+      </td></tr><tr>
+    <% end %>
+  <% elsif column == "publishers" %>
+    <% diff.each do |d| %>
+      <td><%=column%></td>
+      <td>
+        <% if d[:old]%>
+          <%= d[:old].publisher ? "#{truncate(d[:old].publisher.label, :length => 40)}" : "---"%>
+          /
+          <%= hyphenate d[:old].comment %>
+        <% else %>
+          ---
+        <% end %>
+      </td>
+      <td>
+        <% if d[:new]%>
+          <%= d[:new].publisher ? "#{truncate(d[:new].publisher.label, :length => 40)}"  : "---"%>
+          /
+          <%= hyphenate d[:new].comment %>
+        <% else %>
+          ---
+        <% end %>
+      </td></tr><tr>
+    <% end %>
+  <% elsif column == "instrumentations" %>
+    <% diff.each do |d| %>
+      <td><%=column%></td>
+      <td>
+        <% if d[:old] && d[:old].instrumentation%>
+          <%= "#{truncate(d[:old].instrumentation.code, :length => 40)}"%>
+        <% else %>
+          ---
+        <% end %>
+      </td>
+      <td>
+        <% if d[:new] && d[:new].instrumentation%>
+          <%= "#{truncate(d[:new].instrumentation.code, :length => 40)}"%>
+        <% else %>
+          ---
+        <% end %>
+      </td></tr><tr>
+    <% end %>
+  <% elsif column == "composers" %>
+    <% diff.each do |d| %>
+      <td><%=column%></td>
+      <td>
+        <% if d[:old] && d[:old].composer %>
+          <%= "#{truncate(d[:old].composer.name, :length => 40)}"%>
+        <% else %>
+          ---
+        <% end %>
+      </td>
+      <td>
+        <% if d[:new] && d[:new].composer %>
+          <%= "#{truncate(d[:new].composer.name, :length => 40)}"%>
+        <% else %>
+          ---
+        <% end %>
+      </td></tr><tr>
+    <% end %>
+  <% end %>
+
+
+
+<% end %>

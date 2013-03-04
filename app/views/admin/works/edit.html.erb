@@ -1,0 +1,93 @@
+<%= render :partial => '/search/record_navigation' %>
+
+<h1>Full Record 
+    <% if @search %><small>(<%= @search.record_index + 1 %> of <%= @search.number_of_records%>)</small><% end %>
+</h1>
+
+<div id="work_header">
+    <%= render :partial => 'admin_block_show'%>
+</div>
+
+<% form_tag :action => 'update', :id => @work, :search_id => (@search ? @search.search_id : nil) do %>
+	<p class="commands">
+	    <%= submit_tag 'Save', :name => 'save', :class => 'admin button'%>
+	    <%= submit_tag 'Save and version', :name => 'version', :class => 'button'%>
+	    <%= submit_tag 'Cancel', :name => 'cancel', :class => 'button'%>
+	</p>
+	<%= render :partial => '/works/title'%>
+	<div id="content_block">
+	    <%= render :partial => 'content' %>
+	    <%= render :partial => 'additions', :locals => {:edit => true}%>
+	
+		<div class="commands">
+		    <%= submit_tag 'Save', :name => 'save', :class => 'admin button'%>
+		    <%= submit_tag 'Save and version', :name => 'version', :class => 'button'%>
+		    <%= submit_tag 'Cancel', :name => 'cancel', :class => 'button'%>
+		</div>
+		<table>
+	        <tr>
+				<td class="label">Changes:</td>
+	        	<td colspan="3">
+	            	<% if @versions.empty? %>
+	                	---
+	            	<% else %>
+	                <a  id="toggle_versions2" class="toggle_link" href="javascript:toggle('versions2', 'toggle_versions2', 'changes');">Show changes</a>
+	                There <%= @versions.size == 1 ? 'is one change' : "are #{@versions.size} changes"%>.
+
+	        <div id="versions2" style="display:none">
+	            <% for version in @versions %>
+	            <div class="version">
+	                Changes applied on <%=version[:updated_at].strftime("%d.%m.%Y at %H:%M:%S")%>
+	                <% if version[:addition]%>,
+	                    based on an addition
+	                    by <%= mail_to version[:addition].user.mail, version[:addition].user.name%>
+	                <% end %>
+	                <% if version[:comment]%>,
+	                    based on information by <%= version[:comment].text%>.
+	                <% end %>
+					(<%= link_to 'change comment/addition', :action =>'edit_version_comment', :id => @work, :version_id => version[:version]%>):
+
+	                <%= render :partial => '/works/version_diff2', :locals => {:version => version}%>
+	            </div>
+	            <% end %>
+	        </div>
+
+	            <% end %>
+	        </td>
+			</tr>
+
+	        <tr>
+				<td class="label">Editorial Changes:</td>
+	        	<td colspan="3">
+	            	<% if @versions.empty? %>
+	                	---
+	            	<% else %>
+	                <a  id="toggle_editorial_changes" class="toggle_link" href="javascript:toggle('editorial_changes', 'toggle_editorial_changes', 'editorial changes');">Show editorial changes</a>
+	                There <%= @versions.size == 1 ? 'is one editorial change' : "are #{@versions.size} editorial changes"%>.
+
+	        <div id="editorial_changes" style="display:none">
+	            <% for version in @editorial_changes %>
+	            <div class="version">
+	                Changes applied on <%=version[:updated_at].strftime("%d.%m.%Y at %H:%M:%S")%>
+	                <% if version[:addition]%>,
+	                    based on an addition
+	                    by <%= mail_to version[:addition].user.mail, version[:addition].user.name%>
+	                <% end %>
+	                <% if version[:comment]%>,
+	                    based on information by <%= version[:comment].text%>.
+	                <% end %>
+
+	                <%= render :partial => '/works/version_diff2', :locals => {:version => version}%>
+	            </div>
+	            <% end %>
+	        </div>
+
+	            <% end %>
+	        </td>
+			</tr>
+
+
+	    </table>
+	</div>
+<% end %>
+

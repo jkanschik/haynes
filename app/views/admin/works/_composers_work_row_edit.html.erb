@@ -1,0 +1,22 @@
+<tr id="composers_work_<%=composers_work_row_id%>">
+    <td>
+    <% cw = session[:composers_works][composers_work_row_id] %>
+
+    <%= composers = Composer.find(:all, :order => 'name').map {|c| [truncate(c.full_name, :length => 40), c.id]}
+        select_tag("composers_work_#{composers_work_row_id}[composer_id]", options_for_select(composers, cw.composer_id))
+    %>
+    </td>
+    <td>
+		<%=select_tag "composers_work_#{composers_work_row_id}[category]", options_for_select(altcomp_categories, cw.category) %>
+    </td>
+    <td>
+    <%= submit_to_remote 'ok', 'ok',
+                       :url => {:action => 'composers_work_save', :composers_work_row_id => composers_work_row_id},
+                       :html => {:class => 'button'} %>
+    </td>
+    <td>
+    <%= link_to_remote 'cancel', 
+                   :url => {:action => is_new ? 'composers_work_destroy' : 'composers_work_show', :composers_work_row_id => composers_work_row_id}%>
+    </td>
+    
+</tr>

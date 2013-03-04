@@ -1,0 +1,17 @@
+<tr id="work_relation_<%=work_relation_row_id%>">
+    <td>
+	    <%rw = session[:work_relations][work_relation_row_id] %>
+		New work id: <%=text_field "work_relation_#{work_relation_row_id}", 'related_work_id', :size => 10, :value => ''%>
+
+	</td>
+	<td />
+    <td class="button">
+		<%= submit_to_remote 'ok', 'ok',
+	                       :url => {:action => 'work_relation_save', :work_relation_row_id => work_relation_row_id},
+	                       :html => {:class => 'button'} %>
+    </td>
+    <td class="button">
+	    <%= link_to_remote 'cancel', 
+	                   :url => {:action => is_new ? 'work_relation_destroy' : 'work_relation_show', :work_relation_row_id => work_relation_row_id}%>
+    </td>
+</tr>

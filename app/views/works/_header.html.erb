@@ -1,0 +1,11 @@
+<div id="work_header">
+  <table class="work_header">
+    <tr>
+      <td>Id: <%= @work.id %></td>
+      <td>Attr. doubtful: <%= code_label @work.attr_doubtful, "yes_no" %></td>
+      <td>Time: <%= @work.time %></td>
+      <td>Lost: <%= code_label @work.lost, 'yes_no.lost' %></td>
+      <td>Source: <%= @work.source.name if @work.source %></td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,23 @@
+<%= render :partial => '/search/record_navigation' %>
+
+<h1>Full Record 
+    <% if @search %><small>(<%= @search.record_index + 1 %> of <%= @search.number_of_records%>)</small><% end %>
+</h1>
+
+<h1>Reference information for <%= @reference.label %></h1>
+
+<table>
+    <tr><td class="label">Label:</td><td><%= hyphenate @reference.label%></td></tr>
+    <tr><td class="label">Author:</td><td><%= hyphenate @reference.author%></td></tr>
+	<% if @reference.article != "" %>
+    	<tr><td class="label">Article:</td><td><%= @reference.article%></td></tr>
+	    <tr><td class="label"/><td>in '<%= @reference.title%>'<%= ", #{@reference.title_detail}" if @reference.title_detail != "" %></td></tr>
+	<% else %>
+	    <tr><td class="label">Title:</td><td><%= @reference.title%><%= ", #{@reference.title_detail}" if @reference.title_detail != "" %></td></tr>
+	<% end %>
+    <tr>
+		<td class="label">Published:</td>
+		<td><%= hyphenate [@reference.print_publisher, @reference.print_location, @reference.print_year].delete_if{|s| s == ""}.to_sentence(:words_connector => ", ", :last_word_connector => ", ") %></td>
+	</tr>
+    <tr><td class="label">Misc. information:</td><td><%= hyphenate @reference.misc_info%></td></tr>
+</table>

@@ -1,0 +1,8 @@
+<div id="work_<%=work_row_id%>">
+    <% work = session[:works][work_row_id].usage(true) %>
+	
+    <%= link_to_remote "#{work.composer.name}, #{work.title} ",
+                       :url => {:action => 'work_edit', :work_row_id => work_row_id}%>
+    <%= link_to_remote image_tag('x.gif', :border => 0), 
+                   :url => {:action => 'work_destroy', :work_row_id => work_row_id}%>
+</div>

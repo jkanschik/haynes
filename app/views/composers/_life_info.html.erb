@@ -1,0 +1,5 @@
+<% if composer.life_info != "" %>(<%= composer.life_info%>)<% 
+	elsif composer.born or composer.dead %>(<%= composer.born ? (composer.info_born || "") + composer.born.to_s : "?"%>
+   -
+   <%= composer.dead ? (composer.info_dead || "") + composer.dead.to_s : "?"%>)<%
+else %><% end %>

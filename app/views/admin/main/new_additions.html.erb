@@ -1,0 +1,14 @@
+<% @additions.each do |comment| %>
+  <div 
+  	class="comment"
+  	onclick="window.location.href='<%= url_for :controller => 'admin/works', :action => :show, :id => comment.work%>'"
+	>
+		<p class="posted">
+		    <%= comment.user.name%>
+		    commented <%= comment.work.title%> by <%= comment.work.composer.full_name%>
+		    <%=time_ago_in_words comment.created_at%> ago:
+		</p>
+		<p><%=comment.text%></p>
+		<p>Current status : <%=comment.state%></p>
+  </div>
+<% end %>

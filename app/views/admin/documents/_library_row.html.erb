@@ -1,0 +1,8 @@
+<div id="library_<%=library_row_id%>">
+    <% library = session[:libraries][library_row_id].usage(true) %>
+	
+    <%= link_to_remote library.nice_label,
+                       :url => {:action => 'library_edit', :library_row_id => library_row_id}%>
+    <%= link_to_remote image_tag('x.gif', :border => 0), 
+                   :url => {:action => 'library_destroy', :library_row_id => library_row_id}%>
+</div>

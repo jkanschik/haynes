@@ -1,0 +1,15 @@
+<%= render :partial => '/search/record_navigation' %>
+
+<h1>Full Record 
+    <% if @search %><small>(<%= @search.record_index + 1 %> of <%= @search.number_of_records%>)</small><% end %>
+</h1>
+
+<h1>Problem Nr. <%= @problem.id%></h1>
+
+<table>
+    <tr><td class="label">Category:</td><td><%= @problem.category%></td></tr>
+    <tr><td class="label">Title:</td><td><%= @problem.title%></td></tr>
+    <tr><td class="label">Content:</td><td><%= @problem.content%></td></tr>
+    <tr><td class="label">Last change:</td><td><%= @problem.updated_at.strftime("%d.%m.%Y %H:%M:%S") %></td></tr>
+	<tr><td class="label"><br>Any idea?</td><td><br><a href="<%= mail_address() %>">send an e-mail</a></td></tr>
+</table>

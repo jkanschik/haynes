@@ -1,0 +1,15 @@
+<tr id="alia_<%=alia_row_id%>">
+    <td>
+        <%= text_field_tag "alia_#{alia_row_id}[name]", session[:alias][alia_row_id].name, :size => 60 %>
+	</td>
+	<td />
+    <td class="button">
+	 	<%= submit_to_remote 'ok', 'ok',
+	        	:url => {:action => 'alia_save', :alia_row_id => alia_row_id},
+	            :html => {:class => 'button'} %>
+    </td>
+    <td>
+	    <%= link_to_remote 'cancel',
+				:url => {:action => is_new ? 'alia_destroy' : 'alia_show', :alia_row_id => alia_row_id} %>
+    </td>
+</tr>

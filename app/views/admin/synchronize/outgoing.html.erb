@@ -1,0 +1,10 @@
+<h1>New data to be sent online</h1>
+This is a list of all changes which have been made in the local edition and which are not yet stored online.
+
+<%= render :partial => "table_grouped", :locals => {:records => @works, :entity => "Work"} %>
+<%= render :partial => "table_grouped", :locals => {:records => @composers, :entity => "Composer"} %>
+<%= render :partial => "table_not_grouped", :locals => {:records => @libraries, :entity => "Library"} %>
+<%= render :partial => "table_not_grouped", :locals => {:records => @publishers, :entity => "Publisher"} %>
+<%= render :partial => "table_grouped", :locals => {:records => @documents, :entity => "Document"} %>
+<%= render :partial => "table_not_grouped", :locals => {:records => @static, :entity => "Various"} %>
+

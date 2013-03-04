@@ -1,0 +1,10 @@
+<%= render :partial => '/search/record_navigation' %>
+
+<h1>Editing problem</h1>
+
+<% form_tag :action => 'update', :id => @problem, :search_id => params[:search_id] do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Save', :class => 'button' %>
+  <%= submit_tag 'Save and next record', :name => 'save_and_next', :class => 'button' if @search %>
+  <%= submit_tag 'Cancel', :name => 'cancel', :class => 'button'%>
+<% end %>

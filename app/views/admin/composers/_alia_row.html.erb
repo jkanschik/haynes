@@ -1,0 +1,14 @@
+<tr id="alia_<%=alia_row_id%>">
+    <td>
+	    <%= session[:alias][alia_row_id].name %>
+	</td>
+	<td />
+    <td class="button">
+	    <%= link_to_remote image_tag('x.gif', :border => 0), 
+	        	:url => {:action => 'alia_destroy', :alia_row_id => alia_row_id}%>
+    </td>
+    <td class="button">
+	    <%= link_to_remote image_tag('edit.gif', :border => 0), 
+        		:url => {:action => 'alia_edit', :alia_row_id => alia_row_id}%>
+    </td>
+</tr>

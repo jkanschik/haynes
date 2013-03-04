@@ -1,0 +1,18 @@
+<%= render :partial => '/search/record_navigation' %>
+
+<h1>Full Record 
+    <% if @search %><small>(<%= @search.record_index + 1 %> of <%= @search.number_of_records%>)</small><% end %>
+</h1>
+
+<h1>Composer information for '<%= @composer.full_name %>'</h1>
+
+<table>
+    <tr><td class="label">Name:</td><td><%= render :partial => "/composers/full_name", :locals => {:composer => @composer} %></td></tr>
+    <tr><td class="label">First name:</td><td><%= @composer.first_name %> <%="(#{@composer.alt_first_name})" if @composer.alt_first_name != ""%></td></tr>
+    <tr>
+		<td class="label">Dates:</td>
+		<td><%= render :partial => "/composers/life_info", :locals => {:composer => @composer} %></td>
+	</tr>
+    <tr><td class="label">Misc. info:</td><td><%= @composer.misc_info %></td></tr>
+    <tr><td class="label">Oboist:</td><td><%= code_label @composer.oboist, 'yes_no' %></td></tr>
+</table>

@@ -1,0 +1,9 @@
+<% if @search.number_of_records > 10 %>
+	<div class="page_size">
+		Change page size to:
+		<p><%= @search.records_per_page == 10 ? '10' : link_to('10', :controller => :search, :action => :set_page_size, :id => @search.search_id, :size => 10) %></p>
+		<p><%= @search.records_per_page == 25 ? '25' : link_to('25', :controller => :search, :action => :set_page_size, :id => @search.search_id, :size => 25) %></p>
+		<%= (@search.records_per_page == 50 ? '<p>50</p>' : '<p>' + link_to('50', :controller => :search, :action => :set_page_size, :id => @search.search_id, :size => 50) + '</p>').html_safe if @search.number_of_records > 25 %>
+		<%= (@search.records_per_page == 100 ? '<p>100</p>' : '<p>' + link_to('100', :controller => :search, :action => :set_page_size, :id => @search.search_id, :size => 100) + '</p>').html_safe if @search.number_of_records > 50 %>
+	</div>
+<% end %>
