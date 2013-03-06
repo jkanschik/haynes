@@ -7,17 +7,22 @@ describe "Login page" do
     page.should have_selector("a[href='#{new_user_path}']")
   end
 
+  it "should have inputs and remember me checkbox" do
+    page.should have_selector("form.new_session input[name='session[logname]']")
+    page.should have_selector("form.new_session input[name='session[password]']")
+    page.should have_selector("form.new_session input[name='session[remember_me]']")
+  end
 end
 
 describe "Login" do
   let(:user) { FactoryGirl.create(:user) }
 
+  it "should support the remember me feature"
+
   describe "for existing user with correct data" do
     before { login! user }
 
-    it "should show user name" do
-      # TODO
-    end
+    it "should show user name in the navigation"
 
     it "should show the logout link" do
       page.should have_selector("a[href='#{sessions_path}']")
@@ -39,7 +44,7 @@ describe "Login" do
     it "should show the login page again with user name" do
       not_logged_in!
       current_path.should == sessions_path
-      # TODO Add check on user name
+      find("form.new_session input#session_logname").value.should == user.logname
     end
   end
 
@@ -73,11 +78,10 @@ describe "Login" do
     let(:admin) { FactoryGirl.create(:admin) }
     before { login! admin }
 
-    it "should redirect to ???" do
-    end
+    it "should redirect to ???"
 
-    it "should show the admin navigation" do
-    end
+    it "should show the admin navigation"
+
   end
   
 end
