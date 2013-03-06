@@ -15,52 +15,20 @@
       <a href="" rel="info_menu">Info</a> &nbsp; | &nbsp;
     </li>
     <%if logged_in?%>
-      <li><%= link_to 'Log out', :controller => '/users', :action => 'logout' %></li>
+      <li><%= link_to 'Log out', sessions_path, method: :delete %></li>
     <%else%>
-      <li><%= link_to 'Log in', :controller => '/users', :action => 'login' %></li>
+      <li><%= link_to 'Log in', new_session_path %></li>
     <%end%>
   </ul>
 </div>
 
-<div id="admin_menu" class="dropmenudiv">
-  <%= link_to 'Works with "done=N"', :controller => '/search', :action => 'search', :name => "Advanced", 'done' => ['N'] %>
-  <%= link_to 'Works with "done=Y"', :controller => '/search', :action => 'search', :name => "Advanced", 'done' => ['Y'] %>
-  <%= link_to 'Works with "done=P"', :controller => '/search', :action => 'search', :name => "Advanced", 'done' => ['P'] %>
-  <%= link_to 'Works with "state=harmony"', :controller => '/search', :action => 'search', :name => "Advanced", 'state' => ['harmony'] %>
-  <%= link_to 'Works with "state=future"', :controller => '/search', :action => 'search', :name => "Advanced", 'state' => ['future'] %>
-  <%= link_to 'Show new additions', :controller => '/admin/main', :action => 'new_additions'%>
-  <%= link_to 'Show processed additions', :controller => '/admin/main', :action => 'processed_additions'%>
-  <%= link_to 'Show deleted additions', :controller => '/admin/main', :action => 'deleted_additions'%>
-  <hr />
-  <%= link_to 'Create new library', :controller => '/admin/libraries', :action => 'new'%>
-  <%= link_to 'Create new publisher', :controller => '/admin/publishers', :action => 'new'%>
-  <%= link_to 'Create new composer', :controller => '/admin/composers', :action => 'new'%>
-  <%= link_to 'Create new work', :controller => '/admin/works', :action => 'new'%>
-  <%= link_to 'Create new reference', :controller => '/admin/references', :action => 'new'%>
-  <%= link_to 'File document', :controller => '/admin/documents', :action => 'new'%>
-  <%= link_to 'Statistics', :controller => '/info', :action => 'statistics' %>
-  <%= link_to 'Synchronize incoming Data', :controller => '/admin/synchronize', :action => 'incoming' %>
-  <%= link_to 'Synchronize outgoing Data', :controller => '/admin/synchronize', :action => 'outgoing' %>
-  <%= link_to 'Update incipits', :controller => '/admin/main', :action => 'update_incipits' %>
-</div>
-
-<div id="search_menu" class="dropmenudiv">
-  <%= link_to 'Advanced Search', :controller => '/search', :action => 'advanced' %>
-  <%= link_to 'List of Changed Entries', :controller => '/search', :action => 'search', :name => 'NewVersions' %>
-  <%= link_to 'List of New Entries', :controller => '/search', :action => 'search', :name => 'NewEntries' %>
-  <%= link_to 'List of Libraries', :controller => '/search', :action => 'search', :name => "Libraries" %>
-  <%= link_to 'List of Problems', :controller => '/search', :action => 'search', :name => "Problems" %>
-  <%= link_to 'List of Publishers', :controller => '/search', :action => 'search', :name => 'Publishers' %>
-  <%= link_to 'List of References', :controller => '/search', :action => 'search', :name => "Quotations" %>
-</div>
-
 <div id="info_menu" class="dropmenudiv">
-  <%= link_to 'How to Use', :controller => '/info', :action => 'how_to_use' %>
-  <%= link_to 'About this Catalog', :controller => '/info', :action => 'about_this_catalog' %>
-  <%= link_to 'About Bruce', :controller => '/info', :action => 'about_bruce' %>
-  <%= link_to 'About Peter', :controller => '/info', :action => 'about_peter' %>
-  <%= link_to 'About Jens', :controller => '/info', :action => 'about_jens' %>
-  <%= link_to 'Contact', :controller => '/info', :action => 'contact' %>
+  <%= link_to 'How to Use', how_to_use_info_path %>
+  <%= link_to 'About this Catalog', about_info_path %>
+  <%= link_to 'About Bruce', about_bruce_info_path %>
+  <%= link_to 'About Peter', about_peter_info_path %>
+  <%= link_to 'About Jens', about_jens_info_path %>
+  <%= link_to 'Contact', contact_info_path %>
 </div>
 
 <script type="text/javascript">

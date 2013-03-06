@@ -1,0 +1,17 @@
+%h1 Login
+
+= form_for @session, builder: LabellingFormBuilder do |f|
+  %p
+    To log in, please enter your user name and your password.
+    If you are logged in, you can add comments to works.
+  %p
+    If you don't have a user name and password yet, please #{link_to 'register', new_user_path} first.
+
+  - if notice
+    %p.error= notice
+
+  = f.text_field :logname
+  = f.password_field :password
+
+  .actions
+    = f.submit 'Login', :id => 'submit', :class => 'button'

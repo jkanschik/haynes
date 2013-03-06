@@ -332,7 +332,7 @@ div#latest_events_content p.see_all_2 {
 }
 #content form p.error {
     margin: 0px 0px 10px 160px;
-    color: red;
+    color: #B94A48;
 }
 
 #content form.advanced_search select {
@@ -366,6 +366,9 @@ div#latest_events_content p.see_all_2 {
 }
 
 
+#content form label {
+    padding-top: 5px;
+}
 #content div.fieldWithErrors input {
 	background-color: #ffeeee;
 }
@@ -503,16 +506,18 @@ div.pager {
 }
 
 /* ---------------- Buttons ----------------------------- */
-input.button {
+#content form input.button {
     font-size: 100%;
     border: 1px solid #3E464F;
+    border-radius: 0px;
     background:#77b0ff;
+    padding: 2px 10px 2px 10px;
 }
-input.button:focus {
+#content form input.button:focus {
     border: 1px solid #3E464F;
     background:#77b0ff;
 }
-input.button:hover {
+#content form input.button:hover {
     border: 1px solid #7D8C9E;
 }
 

@@ -3,10 +3,10 @@
 
 	<p class="below">
 	to <span style="font-variant:small-caps">the Haynes Catalog</span>! 
-	This <%= link_to 'project', :controller => '/info', :action => 'about_this_catalog' %>,
+	This <%= link_to 'project', about_info_path %>,
 	 inspired 
 	by 
-	<%= link_to 'Bruce Haynes', :controller => '/info', :action => 'about_bruce' %>'
+	<%= link_to 'Bruce Haynes', about_bruce_info_path %>'
 	famous book 'Music for Oboe',
 	presents an interactive and continuously updated database 
 	containing music for and with oboe up to 1800.
@@ -14,22 +14,20 @@
 	and allows an unambiguous identification of the pieces listed 
 	by including incipits (this work is still in progress). 
 	To utilise all these functions have a look at the     
-	<%= link_to 'How to Use - Page', :controller => '/info', :action => 'how_to_use' %>.
+	<%= link_to 'How to Use - Page', how_to_use_info_path %>.
 	Words cannot express how thankful I feel to 
-		<%= link_to 'Jens Kanschik', :controller => '/info', :action => 'about_jens' %>
+		<%= link_to 'Jens Kanschik', about_jens_info_path %>
 	for writing the software running this catalog.
 	I am honored that, through my commitment to this project, a part of Bruce Haynes' work will live on. <br>
     I wish you a successful catalog search and hope you enjoy finding and performing 
 	our oboe music!  
-	<%= link_to 'Peter Wuttke', :controller => '/info', :action => 'about_peter' %><br>
+	<%= link_to 'Peter Wuttke', about_peter_info_path %><br>
 	NEW !!! Folllow the news concerning the catalog on 	
 		<a href="https://www.facebook.com/HaynesCatalog" target="_new" title="The Haynes Catalog on Facebook">
 			<img src="/assets/facebook-icon.png" width="11" height="11" border="0" alt="The Haynes Catalog on Facebook"/>&nbsp;&nbsp;Facebook</a><br />
 	</p>
 
-	<% benchmark("Showing quicksearch partial") do %>
-		<%= render(:partial => "/quick_search", :locals=>{:length => nil}) %>
-	<% end %>
+	<%# render(:partial => "/quick_search", :locals=>{:length => nil}) %>
 	
 	<p class="above">
 	<h1>Please note</h1>
@@ -43,7 +41,7 @@
 	<p>2. If you find mistakes, or know more details about a certain piece, 
 		please write an addition in the Full Record.</p>
 	<p>3. Please have a look at the     
-		<%= link_to 'List of Problems', :controller => '/search', :action => 'search', :name => "Problems" %>,
+		<%#= link_to 'List of Problems', :controller => '/search', :action => 'search', :name => "Problems" %>,
  		and send me an <a href="<%= mail_address() %>">e-mail</a>.</p>
 	<p>4. Please help me to collect the missing incipits.</p>
 	<!--<p>5. Donation</p>-->

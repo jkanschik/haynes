@@ -1,0 +1,8 @@
+- if object.errors.any?
+  .errors
+    %h2 Errors
+    %dl
+      - object.errors.messages.each do |attr, msg|
+        %dt= t("activerecord.attributes.publisher.#{attr}")
+        - msg.each do |m|
+          %dd= m

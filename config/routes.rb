@@ -7,17 +7,36 @@ Haynes::Application.routes.draw do
     resources :publishers
   end
   
-  resources :users do
+  resources :sessions do
     collection do
-      get 'login'
-      get 'register'
-      get 'logout'
+      delete :destroy
+    end
+  end
+  resources :users
+
+  resource :info do
+    collection do
+      get :about
+      get :about_bruce
+      get :about_peter
+      get :about_jens
+      get :how_to_use
+      get :contact
     end
   end
   
+
+  # resources :users do
+  #   collection do
+  #     get 'login'
+  #     get 'register'
+  #     get 'logout'
+  #   end
+  # end
+  
   root to: 'main#index'
   
-  match ':controller(/:action(/:id))(.:format)'
+#  match ':controller(/:action(/:id))(.:format)'
   
   
   

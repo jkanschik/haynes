@@ -1,0 +1,17 @@
+%h1 User registration
+
+= form_for @user, builder: LabellingFormBuilder do |f|
+  %p
+    Since it might be of interest to all the users whose comments are attached,
+    please register with your real name and - in addition -
+    choose a username and a password to log in with.
+
+  = f.text_field :name, :size => 40
+  = f.text_field :logname, :size => 40
+  = f.text_field :mail, :size => 40
+  = f.password_field :orig_password, :size => 20
+  = f.password_field :orig_password_confirmation, :size => 20
+
+  .actions
+    = submit_tag 'Register', :id => 'submit', :class => 'button'
+    = submit_tag 'Reset', :id => 'reset', :type =>'reset', :class => 'button'

@@ -19,14 +19,13 @@
   	</div>
     <div class="line">
   	  <div id="sidebar" class="column">
-  			<%= render(:partial => "/latest_events") if controller.controller_path == 'main' %>
-  			<%= render(:partial => "/quick_search", :locals => {:length => 30}) unless controller.controller_path == 'main' %>
-  			<%= render(:partial => "/search_history") unless controller.controller_path == 'main' %>
+  			<%#= render(:partial => "/latest_events") if controller.controller_path == 'main' %>
+  			<%#= render(:partial => "/quick_search", :locals => {:length => 30}) unless controller.controller_path == 'main' %>
+  			<%#= render(:partial => "/search_history") unless controller.controller_path == 'main' %>
   	  </div>
   	  <div id="content" class="column"><%= yield  %></div>
     </div>
    	<div id="footer">
-  	 	Hosted by <a href="http://beauty-of-code.de">Beauty of Code</a>.
   	</div>
   </div>
 </body>

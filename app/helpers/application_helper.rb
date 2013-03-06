@@ -141,7 +141,7 @@ module ApplicationHelper
   
   
   def admin?
-    logged_in? and current_user.role =='admin'
+    logged_in?# and current_user.role =='admin'
   end
   
   def anti_spam_mail_to(mail, text)
