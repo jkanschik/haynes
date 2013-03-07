@@ -10,6 +10,7 @@ FactoryGirl.define do
     name          "Real name"
     logname       "user"
     orig_password "password"
+    orig_password_confirmation "password"
   end
 
   factory :admin, class: User do
