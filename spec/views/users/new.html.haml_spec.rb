@@ -12,6 +12,10 @@ describe "users/new" do
 
     assert_select "form[action=?][method=?]", users_path, "post" do
       assert_select "input#user_name[name=?]", "user[name]"
+      assert_select "input#user_logname[name=?]", "user[logname]"
+      assert_select "input#user_mail[name=?]", "user[mail]"
+      assert_select "input#user_orig_password[name=?]", "user[orig_password]"
+      assert_select "input#user_orig_password_confirmation[name=?]", "user[orig_password_confirmation]"
     end
 
 # Copied from default index.html.erb_spec to check that there are 2 records in a table:

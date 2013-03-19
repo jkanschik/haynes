@@ -4,16 +4,6 @@ describe "Registration" do
 
   before { visit new_user_path }
 
-  def shows_registration_form
-    within "form.new_user" do
-      page.should have_selector("input#user_name")
-      page.should have_selector("input#user_logname")
-      page.should have_selector("input#user_mail")
-      page.should have_selector("input#user_orig_password[type='password']")
-      page.should have_selector("input#user_orig_password_confirmation[type='password']")
-    end
-  end
-
   def fill_user_form(user)
     within "form.new_user" do
       fill_in :user_name, with: user.name
@@ -24,10 +14,6 @@ describe "Registration" do
     end
   end
   
-  it "should show the form if directly called" do
-    shows_registration_form
-  end
-
   context "if correct user data is provided" do
     let(:user) { FactoryGirl.build(:user) }
 
