@@ -1,7 +1,5 @@
-Haynes catalog
+Haynes catalog [![Build Status](https://secure.travis-ci.org/jkanschik/haynes.png)](http://travis-ci.org/jkanschik/haynes) [![Code Climate](https://codeclimate.com/github/jkanschik/haynes.png)](https://codeclimate.com/github/jkanschik/haynes) [![Coverage Status](https://coveralls.io/repos/jkanschik/haynes/badge.png?branch=master)](https://coveralls.io/r/jkanschik/haynes)
 ======
-
-# Haynes catalog [![Build Status](https://secure.travis-ci.org/jkanschik/haynes.png)](http://travis-ci.org/jkanschik/haynes) [![Code Climate](https://codeclimate.com/github/jkanschik/haynes.png)](https://codeclimate.com/github/jkanschik/haynes)
 
 Haynes catalog is an online catalogue for historic oboe music, see (http://haynes-catalog.net).
 
