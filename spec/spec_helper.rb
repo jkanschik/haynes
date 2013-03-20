@@ -1,13 +1,13 @@
+require 'coveralls'
 require 'simplecov'
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start do
   add_group "Models", "app/models"
   add_group "Controllers", "app/controllers"
   add_group "Libraries", "/lib"
   add_group "Helpers", "app/helpers"
 end
-
-require 'coveralls'
-Coveralls.wear!
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
