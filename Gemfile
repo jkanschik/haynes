@@ -34,3 +34,5 @@ group :test do
   gem 'rb-fsevent', :require => false
   gem 'growl'
 end
+
+gem 'coveralls', require: false
